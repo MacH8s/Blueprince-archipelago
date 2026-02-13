@@ -1360,7 +1360,11 @@ green_rooms = {
         ROOM_CHEST_SPOT_COUNT_KEY: 0,
         ROOM_LAYOUT_TYPE_KEY: ROOM_LAYOUT_TYPE_T,
         ROOM_PICK_POSITIONS_KEY: [
-            # TODO-0 this needs to be set to require access to one of the non-corner edges.
+            # Secret garden IS NOT draftable via normal rules, but DOES require access to these rooms as part of the logic.
+            "EDGECREEP EAST",
+            "EDGECREEP WEST",
+            "EDGEPIERCE EAST",
+            "EDGEPIERCE WEST",
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
