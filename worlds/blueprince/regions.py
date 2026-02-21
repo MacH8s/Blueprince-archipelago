@@ -156,7 +156,7 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
                     room,
                     f"Entrance Hall {k}",
                     # TODO-2: This does not take into account that you need to have some level of placement restriction
-                    lambda state: state.has("Grate Hall", world.player)
+                    lambda state: state.has("Great Hall", world.player)
                     or (state.has("Greenhouse", world.player) and state.has("BROKEN LEVER", world.player))
                     or state.has("Mechanarium", world.player)
                     or (state.has("Weight Room", world.player) and state.has("Power Hammer", world.player))
@@ -167,7 +167,6 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
                 antechamber.connect(
                     room,
                     "Antechamber To Room 46",
-                    # TODO-2: This does not take into account that you need to have some level of placement restriction
                     lambda state: state.has("North Lever Access", world.player),
                 )
             elif k == "Entrance Hall":
@@ -437,35 +436,34 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
     ###################################
     # COMPLEX REGION CONNECTION LOGIC #
     ###################################
-    # TODO-0 (These connections have quite complex logic relating to the underground and minecart puzzles.)
     reservoir_gear_side.connect(
         safehouse,
         "Reservoir Gear Side To Safehouse",
-        lambda state: (True or state.has("")),
+        lambda state: state.has("Pump Room", world.player) and state.can_reach_region("Reservoir Fountain Side", world.player) and state.can_reach_region("Basement", world.player),
     )  # Pump Room & Fountain Side Access. (take fountain side to gear side, lower again, and make it back down on gear side.)
     reservoir_gear_side.connect(
         reservoir_bottom,
         "Reservoir Gear Side To Reservoir Bottom",
-        lambda state: (True or state.has("")),
+        lambda state: state.has("Pump Room", world.player) and state.has("Boiler Room", world.player) and state.can_reach_region("Basement", world.player),
     )  # Pump Room and boiler room (both this and safehouse require ability to get to gear side NOT through well side.)
     rotating_gear.connect(
         the_underpass,
         "Rotating Gear To Underpass",
-        lambda state: (True or state.has("")),
+        lambda state: state.can_reach_region("Reservoir Fountain Side", world.player) and state.can_reach_region("Reservoir Gear Side", world.player),
     )  # Require Dual side access
     rotating_gear.connect(
         abandoned_mine,
         "Rotating Gear To Abandoned Mine",
-        lambda state: (True or state.has("")),
+        lambda state: True,
     )
     reservoir_fountain_side.connect(
         reservoir_gear_side,
         "Reservoir Fountain Side To Reservoir Gear Side",
-        lambda state: (True or state.has("")),
+        lambda state: state.has("Pump Room", world.player),
     )  # Pump Room
 
     outer_room.connect(
         atelier,
         "Outer Room To Atelier",
         lambda state: state.has("Secret Passage", world.player) and state.has("Watering Can", world.player),
-    )  # Needs
+    )
