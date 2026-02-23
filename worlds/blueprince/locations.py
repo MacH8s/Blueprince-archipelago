@@ -113,6 +113,7 @@ def create_events(world: BluePrinceWorld) -> None:
     room_46 = world.get_region("Room 46")
     throne_room = world.get_region("Throne Room")
     atelier = world.get_region("The Atelier")
+    entrance_hall = world.get_region("Entrance Hall")
 
     # Set Victory as entering antechamber
     if world.options.goal_type.value == GoalType.option_antechamber:
@@ -220,6 +221,20 @@ def create_events(world: BluePrinceWorld) -> None:
         item_type=items.BluePrinceItem,
     )
 
+    # Trophies
+    # Full House Trophy
+    entrance_hall.add_event(
+        "Earn Full House Trophy",
+        "Full House Trophy",
+        lambda state: True,
+        location_type=BluePrinceLocation,
+        item_type=items.BluePrinceItem,
+    )
+
+    # Trophy of Invention
+    # Trophy of Drafting
+    # Trophy of Wealth
+
     # Chess Piece Access Rules
     for k, v in rooms.items():
         if v[ROOM_CHESS_PIECE_KEY] == CHESS_PIECE_NONE:
@@ -239,6 +254,7 @@ def create_events(world: BluePrinceWorld) -> None:
                 f"X Piece",
                 location_type=BluePrinceLocation,
                 item_type=items.BluePrinceItem,
+                show_in_spoiler=False,
             )
         elif v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_T:
             world.get_region(k).add_event(
@@ -246,6 +262,7 @@ def create_events(world: BluePrinceWorld) -> None:
                 f"T Piece",
                 location_type=BluePrinceLocation,
                 item_type=items.BluePrinceItem,
+                show_in_spoiler=False,
             )
         elif v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_I:
             world.get_region(k).add_event(
@@ -253,6 +270,7 @@ def create_events(world: BluePrinceWorld) -> None:
                 f"I Piece",
                 location_type=BluePrinceLocation,
                 item_type=items.BluePrinceItem,
+                show_in_spoiler=False,
             )
         elif v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_J:
             world.get_region(k).add_event(
@@ -260,6 +278,7 @@ def create_events(world: BluePrinceWorld) -> None:
                 f"J Piece",
                 location_type=BluePrinceLocation,
                 item_type=items.BluePrinceItem,
+                show_in_spoiler=False,
             )
         elif v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D:
             world.get_region(k).add_event(
@@ -267,5 +286,6 @@ def create_events(world: BluePrinceWorld) -> None:
                 f"D Piece",
                 location_type=BluePrinceLocation,
                 item_type=items.BluePrinceItem,
+                show_in_spoiler=False,
             )
         

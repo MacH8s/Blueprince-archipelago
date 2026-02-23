@@ -538,6 +538,8 @@ def can_reach_pick_position(room : str, world: BluePrinceWorld, state: Collectio
     Use depth first search to determine if a the pick position is reachable with the current inventory.
     """
 
+    # TODO: figure out how to cache unreachable pick locations and clear cache when a new region logic pass starts
+
     room_data = rooms[room]
     
     positions_types = room_data[ROOM_PICK_POSITIONS_KEY]
@@ -577,7 +579,7 @@ def can_reach_pick_position(room : str, world: BluePrinceWorld, state: Collectio
                     state.collect(pt, world.player)
                     return True
     
-    # TODO: add an additional pass for when Foundation is in inventory
+    # TODO: add an additional pass for when Foundation is in pool
 
     def get_shape_for_tile_type(tile_type):
         if tile_type == "i":
