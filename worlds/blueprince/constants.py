@@ -65,6 +65,24 @@ ITEM_ITEM_CLASSIFICATION_KEY = "item_classification"
 # Used to denote that no index exists in the main item list.
 NO_ITEM_ELEMENT_INDEX = -1
 
+##########################
+# LOCATION KEY CONSTANTS #
+##########################
+
+LOCATION_ID_KEY = "location_id"
+LOCATION_REQUIREMENTS = "requirements"
+LOCATION_ROOM_KEY = "location_room"
+
+##################################
+# LOCATION REQUIREMENT CONSTANTS #
+##################################
+
+LOCATION_REQUIREMENT_TYPE_ROOM_COUNT = "room_count"
+LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS = "has_all_rooms"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEMS = "has_items"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEM_COUNTS = "has_item_counts"
+LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS = "has_regions_access"
+LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS = "has_locations_access"
 
 #####################
 # CONTROL CONSTANTS #

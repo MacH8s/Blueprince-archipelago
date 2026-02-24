@@ -208,10 +208,10 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
                         can_reach_pick_position(k, world, state) and
                         (
                             state.can_reach_region("Room 46", world.player) or 
-                            state.has("Full House Trophy", world.player) or 
-                            state.has("Trophy of Invention", world.player) or 
-                            state.has("Trophy of Drafting", world.player) or 
-                            state.has("Trophy of Wealth", world.player)
+                            state.can_reach_location("Full House Trophy", world.player) or 
+                            state.can_reach_location("Trophy of Invention", world.player) or 
+                            state.can_reach_location("Trophy of Drafting", world.player) or 
+                            state.can_reach_location("Trophy of Wealth", world.player)
                         ),
                 ) # Has reached Room 46 or has one of the 4 listed Trophies
             elif k == "Gift Shop":
@@ -519,7 +519,6 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
     rotating_gear.connect(
         abandoned_mine,
         "Rotating Gear To Abandoned Mine",
-        lambda state: True,
     )
     reservoir_fountain_side.connect(
         reservoir_gear_side,

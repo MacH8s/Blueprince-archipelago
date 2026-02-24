@@ -11,6 +11,7 @@ from .constants import *
 
 from .data_rooms import rooms
 from .data_items import showroom_items, armory_items, other_items
+from .data_other_locations import trophies
 
 if TYPE_CHECKING:
     from .world import BluePrinceWorld
@@ -81,6 +82,7 @@ def create_all_locations(world: BluePrinceWorld) -> None:
 def create_regular_locations(world: BluePrinceWorld) -> None:
 
     campsite = world.get_region("Campsite")  # For Sanctum Solves Victory.
+    entrance_hall = world.get_region("Entrance Hall")
 
     # Iterate through the campsite and add locations for all items.
     for k, v in (showroom_items | armory_items | other_items).items():
@@ -105,6 +107,10 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
                 locations = get_location_names_with_ids([location_key])
                 room.add_locations(locations, BluePrinceLocation)
 
+    # Trophies
+    for k, v in trophies.items():
+        pass
+    
 
 def create_events(world: BluePrinceWorld) -> None:
 
@@ -113,7 +119,6 @@ def create_events(world: BluePrinceWorld) -> None:
     room_46 = world.get_region("Room 46")
     throne_room = world.get_region("Throne Room")
     atelier = world.get_region("The Atelier")
-    entrance_hall = world.get_region("Entrance Hall")
 
     # Set Victory as entering antechamber
     if world.options.goal_type.value == GoalType.option_antechamber:
@@ -220,20 +225,6 @@ def create_events(world: BluePrinceWorld) -> None:
         location_type=BluePrinceLocation,
         item_type=items.BluePrinceItem,
     )
-
-    # Trophies
-    # Full House Trophy
-    entrance_hall.add_event(
-        "Earn Full House Trophy",
-        "Full House Trophy",
-        lambda state: True,
-        location_type=BluePrinceLocation,
-        item_type=items.BluePrinceItem,
-    )
-
-    # Trophy of Invention
-    # Trophy of Drafting
-    # Trophy of Wealth
 
     # Chess Piece Access Rules
     for k, v in rooms.items():
