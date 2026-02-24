@@ -601,19 +601,55 @@ file_cabinet_keys = {
 
 keys = vault_keys | sanctum_keys | file_cabinet_keys
 
-
+misc_locations = {
+    "Entrance Hall East Vase": {
+        LOCATION_ID_KEY: create_location_id("Entrance Hall"),
+        LOCATION_ROOM_KEY: "Entrance Hall",
+    },
+    "Entrance Hall West Vase": {
+        LOCATION_ID_KEY: create_location_id("Entrance Hall"),
+        LOCATION_ROOM_KEY: "Entrance Hall",
+    },
+    "Cursed Coffers": {
+        LOCATION_ID_KEY: create_location_id("Gift Shop"),
+        LOCATION_ROOM_KEY: "Gift Shop",
+        LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["Shrine"]
+    },
+    "Gasline Valve - Orchard": {
+        LOCATION_ID_KEY: create_location_id("Apple Orchard"),
+        LOCATION_ROOM_KEY: "Apple Orchard",
+    },
+    "Gasline Valve - Schoolhouse": {
+        LOCATION_ID_KEY: create_location_id("Schoolhouse"),
+        LOCATION_ROOM_KEY: "Schoolhouse",
+    },
+    "Gasline Valve - Hovel": {
+        LOCATION_ID_KEY: create_location_id("Hovel"),
+        LOCATION_ROOM_KEY: "Hovel",
+    },
+    "Gasline Valve - Gemstone Cavern": {
+        LOCATION_ID_KEY: create_location_id("Gemstone Cavern"),
+        LOCATION_ROOM_KEY: "Gemstone Cavern",
+    },
+    "Sundial": {
+        LOCATION_ID_KEY: create_location_id("Apple Orchard"),
+        LOCATION_ROOM_KEY: "Apple Orchard",
+        LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: ["Burning Glass", "TORCH"]
+    },
+    "VAC Controls": {
+        LOCATION_ID_KEY: create_location_id("Utility Closet"),
+        LOCATION_ROOM_KEY: "Utility Closet",
+    },
+    # Almost all of the other Allowance Tokens are directly behind/next to another location
+    "Allowance Token - Cloister Statue": {
+        LOCATION_ID_KEY: create_location_id("Cloister"),
+        LOCATION_ROOM_KEY: "Cloister",
+    },
+}
 
 # TODO-1 add locations for other stuff later.
-# "Entrance Hall East Vase": rooms["Entrance Hall"][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + 0,
-# "Entrance Hall West Vase": rooms["Entrance Hall"][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + 1,
+# Chapel Keeper
+# Alzara Prophecies
 
-# One-time Allowance Tokens
-
-# Cursed Coffers
-# Chapel Offering
-
-# Gas Valves
-# Sundial
-
-other_locations = trophies | safes_and_small_gates | moria_jia_boxes | floorplans | shop_items | upgrade_disks | keys
+other_locations = trophies | safes_and_small_gates | moria_jia_boxes | floorplans | shop_items | upgrade_disks | keys | misc_locations
     
