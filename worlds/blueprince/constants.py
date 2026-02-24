@@ -19,6 +19,9 @@ ROOM_LAYOUT_TYPE_KEY = "room_layout"
 # room location type key is a key used to set if a room is from the outer rooms
 OUTER_ROOM_KEY = "is_outer_room"
 
+INNER_ROOM_KEY = "is_inner_room"
+LOCATION_COUNT_KEY = "location_count"
+
 
 ##################
 # ITEM CONSTANTS #
@@ -79,10 +82,12 @@ LOCATION_ROOM_KEY = "location_room"
 
 LOCATION_REQUIREMENT_TYPE_ROOM_COUNT = "room_count"
 LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS = "has_all_rooms"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEMS = "has_items"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL = "has_items_all"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY = "has_items_any"
 LOCATION_REQUIREMENT_TYPE_HAS_ITEM_COUNTS = "has_item_counts"
 LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS = "has_regions_access"
 LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS = "has_locations_access"
+LOCATION_REQUIREMENT_TYPE_COUNT_LOCATIONS_ACCESS = "count_locations_access"
 
 #####################
 # CONTROL CONSTANTS #

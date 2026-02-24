@@ -1812,3 +1812,13 @@ black_rooms = {
 }
 
 rooms = blue_rooms | bedrooms | hallways | green_rooms | shops | red_rooms | black_rooms
+
+room_layout_lists = {
+    ROOM_LAYOUT_TYPE_X: [k for k, v in rooms.items() if v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_X],
+    ROOM_LAYOUT_TYPE_J: [k for k, v in rooms.items() if v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_J],
+    ROOM_LAYOUT_TYPE_T: [k for k, v in rooms.items() if v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_T],
+    ROOM_LAYOUT_TYPE_D: [k for k, v in rooms.items() if v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D],
+    ROOM_LAYOUT_TYPE_I: [k for k, v in rooms.items() if v[ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_I],
+    INNER_ROOM_KEY: [k for k, v in rooms.items() if not v[OUTER_ROOM_KEY]],
+    OUTER_ROOM_KEY: [k for k, v in rooms.items() if v[OUTER_ROOM_KEY]],
+}
