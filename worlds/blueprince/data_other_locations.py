@@ -15,7 +15,7 @@ def get_room_location_count(room_name: str) -> int:
 
 trophies = {
     "Full House Trophy": {
-        LOCATION_ID_KEY: create_location_id("Entrance Hall"),
+        LOCATION_ID_KEY: rooms["Entrance Hall"][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + 1,
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_ROOM_COUNT: 45}
     },
