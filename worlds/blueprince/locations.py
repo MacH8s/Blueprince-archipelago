@@ -65,7 +65,12 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
         # TODO-2 this could be a comprehension, but this works for now.
         location_key = f"{k} First Pickup"
         locations = get_location_names_with_ids([location_key])
-        campsite.add_locations(locations, BluePrinceLocation)
+        
+        if k == "KEY 8":
+            world.get_region("Gallery").add_locations(locations, BluePrinceLocation)
+            world.get_region("Lost And Found").add_locations(locations, BluePrinceLocation)
+        else:
+            campsite.add_locations(locations, BluePrinceLocation)
 
     for room_key, v in rooms.items():
         room = world.get_region(room_key)
