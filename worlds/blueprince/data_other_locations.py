@@ -418,7 +418,7 @@ other_item_pickup = {
             "Utility Closet",
             "Kitchen",
         ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
-        or (state.can_reach_region("Trading Post", world.player) and any(state.has(item, world.player) for item in TRADING_POST_TIER1[TRADING_POST_GIVE]))
+        or (state.can_reach_region("Trading Post", world.player) and any(state.has(item, world.player) for item in get_trading_post_offers("BATTERY PACK")))
         #
         # These check is redundant. Leaving them here to document all spawn locations. 
         #
@@ -466,7 +466,7 @@ other_item_pickup = {
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Parlor",
             "Attic",
             "Workshop",
@@ -491,7 +491,7 @@ other_item_pickup = {
             "Drafting Studio",
             "Observatory",
             "Terrace",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Workshop",
             "Throne Room",
             "Den",
@@ -513,7 +513,7 @@ other_item_pickup = {
             "Nook",
             "Office",
             "Vault",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Morning Room",
             "Den",
             "Pantry",
@@ -555,7 +555,7 @@ other_item_pickup = {
             "Rumpus Room",
             "Security",
             "Vault",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Wine Cellar",
             "Workshop",
             "Closed Exhibit",
@@ -572,7 +572,7 @@ other_item_pickup = {
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Rumpus Room",
             "Nursery",
             "Morning Room",
@@ -585,7 +585,169 @@ other_item_pickup = {
         or (state.can_reach_region("Lavatory", world.player) and state.can_reach_region("Shelter", world.player))
         # Also spawns in Her Ladyship's Spare Room, Spare Servant's Quarters, and Spare Bedroom, but we aren't adding upgraded rooms seperately atm.
     },
-    
+    "MAGNIFYING GLASS First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 11, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Archives",
+            "Attic",
+            "Boudoir",
+            "Chapel",
+            "Courtyard",
+            "Drafting Studio",
+            "Guest Bedroom",
+            "Her Ladyship's Chambers",
+            "Laboratory",
+            "Library",
+            "Mail Room",
+            "Nook",
+            "Observatory",
+            "Office",
+            "Parlor",
+            "Study",
+            "Workshop",
+            "Classroom 1",
+            "Classroom 2",
+            "Classroom 3",
+            "Classroom 4",
+            "Classroom 5",
+            "Classroom 6",
+            "Classroom 7",
+            "Classroom 8",
+            "Classroom Exam",
+            "Conservatory",
+            "Den",
+            "Drawing Room",
+            "Commissary",
+        ]) or (state.can_reach_region("Garage", world.player) and state.has("CAR KEYS", world.player))
+        # Also spawns in Spare Foyer, but we aren't adding upgraded rooms seperately atm.
+    },
+    "METAL DETECTOR First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 12, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Archives",
+            "Attic",
+            "Closet",
+            "Courtyard",
+            "Greenhouse",
+            "Maids Chamber",
+            "Mail Room",
+            "Patio",
+            "Veranda",
+            "Workshop",
+            "Secret Garden",
+            "Clock Tower",
+            "Toolshed",
+            "Garage",
+            "Boiler Room",
+            "Commissary",
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        # Also spawns in Spare Patio and Spare Veranda, but we aren't adding upgraded rooms seperately atm.
+    },
+    "REPELLENT First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 13, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Lost And Found", world.player)
+    },
+    "RUNNING SHOES First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 14, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Closet",
+            "Gymnasium",
+            "Locker Room",
+            "Rumpus Room",
+            "Sauna",
+            "The Pool",
+            "Walk-In Closet",
+            "Weight Room",
+            "Dormitory",
+            "Garage",
+            "Commissary",
+            "Locker Room",
+            "Mail Room", # Frieght Mail
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        # Also spawns in Spare Servant's Quarters, but we aren't adding upgraded rooms seperately atm.
+    },
+    "SALT SHAKER First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 15, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Rumpus Room",
+            "Walk-In Closet",
+            "Billard Room",
+            "Dining Room",
+            "Morning Room",
+            "Pantry",
+            "Kitchen",
+            "Commissary",
+            "Observatory", # Spiral of Stars
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        or (state.can_reach_region("Trading Post", world.player) and any(state.has(item, world.player) for item in get_trading_post_offers("SALT SHAKER")))
+    },
+    "SHOVEL First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 16, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Aquarium",
+            "Attic",
+            "Cloister",
+            "Closet",
+            "Courtyard",
+            "Furnace",
+            "Greenhouse",
+            "Patio",
+            "Storeroom",
+            "Terrace",
+            "Veranda",
+            "Wine Cellar",
+            "Workshop",
+            "Secret Garden",
+            "Clock Tower",
+            "Solarium",
+            "Tunnel",
+            "Toolshed",
+            "Hovel",
+            "Spare Room",
+            "Garage",
+            "Trophy Room",
+            "Utility Closet",
+            "Boiler Room",
+            "Commissary",
+            "Observatory", # Spiral of Stars
+            "Mail Room", # Frieght Mail
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        or (state.can_reach_region("Trading Post", world.player) and any(state.has(item, world.player) for item in get_trading_post_offers("SHOVEL")))
+        # Also spawns in Spare Greenhouse, Spare Patio, Space Terrace, and Spare Veranda, but we aren't adding upgraded rooms seperately atm.
+    },
+    "SLEDGE HAMMER First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 17, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Attic",
+            "Closet",
+            "Courtyard",
+            "Greenhouse",
+            "Storeroom",
+            "Veranda",
+            "Workshop",
+            "Wine Cellar",
+            "Secret Garden",
+            "Tunnel",
+            "Toolshed",
+            "Spare Room",
+            "Garage",
+            "Music Room",
+            "Trophy Room",
+            "Utility Closet",
+            "Commissary",
+            "Observatory", # Spiral of Stars
+            "Mail Room", # Frieght Mail
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        or (state.can_reach_region("Trading Post", world.player) and any(state.has(item, world.player) for item in get_trading_post_offers("SLEDGE HAMMER")))
+        # Also spawns in Spare Hall and Spare Foyer, but we aren't adding upgraded rooms seperately atm.
+    },
 }
 
 upgrade_disks = {
@@ -710,7 +872,7 @@ vault_keys = {
         ], world.player) or any(state.can_reach_region(x, world.player) for x in [
             "Conference Room",
             "Her Ladyship's Chambers",
-            "Walk-in Closet",
+            "Walk-In Closet",
             "Hovel",
             "Spare Room",
             "Drawing Room",
