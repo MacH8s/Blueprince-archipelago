@@ -73,21 +73,8 @@ NO_ITEM_ELEMENT_INDEX = -1
 ##########################
 
 LOCATION_ID_KEY = "location_id"
-LOCATION_REQUIREMENTS = "requirements"
+LOCATION_RULE = "rule"
 LOCATION_ROOM_KEY = "location_room"
-
-##################################
-# LOCATION REQUIREMENT CONSTANTS #
-##################################
-
-LOCATION_REQUIREMENT_TYPE_ROOM_COUNT = "room_count"
-LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS = "has_all_rooms"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL = "has_items_all"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY = "has_items_any"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEM_COUNTS = "has_item_counts"
-LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS = "has_regions_access"
-LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS = "has_locations_access"
-LOCATION_REQUIREMENT_TYPE_COUNT_LOCATIONS_ACCESS = "count_locations_access"
 
 #####################
 # CONTROL CONSTANTS #

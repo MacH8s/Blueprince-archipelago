@@ -1,7 +1,7 @@
 from BaseClasses import ItemClassification
 
 from .constants import *
-from .data_rooms import rooms
+from .data_rooms import rooms, core_rooms, room_layout_lists
 from .locations import ROOM_MULTIPLIER
 
 def get_room_location_id(room_name: str) -> int:
@@ -11,13 +11,12 @@ trophies = {
     "Full House Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 0,
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_ROOM_COUNT: 45}
+        LOCATION_RULE: lambda state, world: state.count_from_list([x for x in room_layout_lists[INNER_ROOM_KEY] if x not in core_rooms], world.player) >= 43
     },
     "Trophy of Invention": {
         LOCATION_ID_KEY: get_room_location_id("Workshop") + 0,
         LOCATION_ROOM_KEY: "Workshop",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: [
+        LOCATION_RULE: lambda state, world: state.has_all([
                 "Burning Glass",
                 "Detector Shovel",
                 "Dowsing Rod",
@@ -26,51 +25,43 @@ trophies = {
                 "Lucky Purse",
                 "Pick Sound Amplifier",
                 "Power Hammer",
-            ]
-        }
+            ], world.player
+        )
     },
     "Trophy of Drafting": {
         LOCATION_ID_KEY: get_room_location_id("Mail Room") + 0,
         LOCATION_ROOM_KEY: "Mail Room",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS: [x for x in rooms if rooms[x][ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D and not rooms[x][OUTER_ROOM_KEY]]
-        }
+        LOCATION_RULE: lambda state, world: [x for x in rooms if rooms[x][ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D and not rooms[x][OUTER_ROOM_KEY] and x not in core_rooms and state.can_reach_region(x, world.player)].count() >= 20,
     },
     "Trophy of Wealth": {
         LOCATION_ID_KEY: get_room_location_id("Showroom") + 0,
         LOCATION_ROOM_KEY: "Showroom",
-        LOCATION_REQUIREMENTS: {}
     },
     "Inheritance Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Room 46") + 0,
         LOCATION_ROOM_KEY: "Room 46",
-        LOCATION_REQUIREMENTS: {}
     },
     "Bullesye Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Billiard Room") + 0,
         LOCATION_ROOM_KEY: "Billiard Room",
-        LOCATION_REQUIREMENTS: {}
     },
     "A Logical Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Parlor") + 0,
         LOCATION_ROOM_KEY: "Parlor",
-        LOCATION_REQUIREMENTS: {}
     },
     "Trophy 8": {
         LOCATION_ID_KEY: get_room_location_id("Room 8") + 0,
         LOCATION_ROOM_KEY: "Room 8",
-        LOCATION_REQUIREMENTS: {}
     },
     "Explorer's Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 1,
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: { LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS: True }
+        LOCATION_RULE: lambda state, world: state.has_all(rooms.keys(), world.player)
     },
     "Trophy of Sigils": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 2,
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS: [
+        LOCATION_RULE: lambda state, world: all(state.can_reach_region(sanctum, world.player) for sanctum in [
                 "Orinda Aries Sanctum",
                 "Fenn Aries Sanctum",
                 "Arch Aries Sanctum",
@@ -80,13 +71,12 @@ trophies = {
                 "Verra Sanctum",
                 "Nuance Sanctum",
             ]
-        }
+        )
     },
     "Diploma Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 3,
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS: [
+        LOCATION_RULE: lambda state, world: all(state.can_reach_region(region, world.player) for region in [
                 "Schoolhouse",
                 "Classroom 1",
                 "Classroom 2",
@@ -98,35 +88,30 @@ trophies = {
                 "Classroom 8",
                 "Classroom Exam",
             ]
-        }
+        )
     }
 
     # For if we add new game+ trophies, mostly here for completeness sake
     # "Dare Bird Trophy": {
     #     LOCATION_ID_KEY: get_room_location_id("Room 46") + 1,
     #     LOCATION_ROOM_KEY: "Room 46",
-    #     LOCATION_REQUIREMENTS: {}
     # },
     # "Cursed Trophy": {
     #     LOCATION_ID_KEY: get_room_location_id("Room 46") + 2,
     #     LOCATION_ROOM_KEY: "Room 46",
-    #     LOCATION_REQUIREMENTS: {}
     # },
     # "Day One Trophy": {
     #     LOCATION_ID_KEY: get_room_location_id("Room 46") + 3,
     #     LOCATION_ROOM_KEY: "Room 46",
-    #     LOCATION_REQUIREMENTS: {}
     # },
     # "Trophy of Speed": {
     #     LOCATION_ID_KEY: get_room_location_id("Room 46") + 4,
     #     LOCATION_ROOM_KEY: "Room 46",
-    #     LOCATION_REQUIREMENTS: {}
     # }
     # "Trophy of Trophies": {
     #     LOCATION_ID_KEY: get_room_location_id("Trophy Room") + 0,
     #     LOCATION_ROOM_KEY: "Trophy Room",
-    #     LOCATION_REQUIREMENTS: {
-    #         LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS: [
+    #     LOCATION_REQUIREMENTS: lambda state, world: all(state.can_reach_location(trophy, world.player) for trophy in [
     #             "Full House Trophy",
     #             "Trophy of Invention",
     #             "Trophy of Drafting",
@@ -143,7 +128,7 @@ trophies = {
     #             "Day One Trophy",
     #             "Trophy of Speed"
     #         ]
-    #     }
+    #     )
     # }
 }
 
@@ -155,7 +140,7 @@ safes_and_small_gates = {
     "Drafting Studio Safe": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio") + 0,
         LOCATION_ROOM_KEY: "Drafting Studio",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["MAGNIFYING GLASS"]}
+        LOCATION_RULE: lambda state, world: state.has("MAGNIFYING GLASS")
     },
     "Drawing Room Safe": {
         LOCATION_ID_KEY: get_room_location_id("Drawing Room") + 0,
@@ -172,7 +157,7 @@ safes_and_small_gates = {
     "Underpass Gate": {
         LOCATION_ID_KEY: get_room_location_id("Underpass") + 0,
         LOCATION_ROOM_KEY: "Underpass",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["Boiler Room"]}
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
     },
     "Shelter Safe": {
         LOCATION_ID_KEY: get_room_location_id("Shelter") + 0,
@@ -227,11 +212,11 @@ moria_jia_boxes = {
     "Throne of the Blue Prince Moria Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Throne Room") + 0,
         LOCATION_ROOM_KEY: "Throne Room",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: [
+        LOCATION_RULE: lambda state, world: state.has_all([
             "CROWN",
             "ROYAL SCEPTER",
             "CURSED EFFIGY",
-        ]}
+        ], world.player),
     },
     "Arch Aries Sanctum Moria Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Arch Aries Sanctum") + 0,
@@ -315,7 +300,7 @@ found_floorplans = {
     "Treasure Trove Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Underpass") + 0,
         LOCATION_ROOM_KEY: "Underpass",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS: ["Boiler Room"]}
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
     },
     "Throne Room Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Orindian Ruins") + 0,
@@ -339,8 +324,6 @@ found_floorplans = {
     }
 }
 
-# Mirror Room Floorplan Duplicates?
-
 floorplans = drafting_studio_additions | found_floorplans
 
 gift_shop_items = {
@@ -363,12 +346,12 @@ gift_shop_items = {
     "Gift Shop - Blue Tents": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop") + 4,
         LOCATION_ROOM_KEY: "Gift Shop",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_COUNT_LOCATIONS_ACCESS: (trophies.keys(), 8)}
+        LOCATION_RULE: lambda state, world: [state.can_reach_location(loc, world.player) for loc in trophies.keys()].count() >= 8
     },
     "Gift Shop - Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop") + 5,
         LOCATION_ROOM_KEY: "Gift Shop",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: ["Library", "Shrine"]},
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in ["Library", "Shrine"]),
     }
 }
 
@@ -429,23 +412,21 @@ upgrade_disks = {
     "Upgrade Disk - Vault": {
         LOCATION_ID_KEY: get_room_location_id("Vault") + 0,
         LOCATION_ROOM_KEY: "Vault",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["VAULT KEY 304"]}
+        LOCATION_RULE: lambda state, world: state.has("VAULT KEY 304", world.player)
     },
     "Upgrade Disk - Trading Post Dynamite": {
         LOCATION_ID_KEY: get_room_location_id("Trading Post") + 0,
         LOCATION_ROOM_KEY: "Trading Post",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: ["Burning Glass", "TORCH"]}
+        LOCATION_RULE: lambda state, world: state.has_any(["Burning Glass", "TORCH"], world.player),
     },
     "Upgrade Disk - Freezer": {
         LOCATION_ID_KEY: get_room_location_id("Freezer") + 0,
         LOCATION_ROOM_KEY: "Freezer",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: [
-                "Furnace",
+        LOCATION_RULE: lambda state, world: state.has_any([
                 "Burning Glass",
                 "TORCH",
                 "Power Hammer",
-        ]}
+        ], world.player) or state.can_reach_region("Furnace", world.player)
     },
     "Upgrade Disk - Tomb": {
         LOCATION_ID_KEY: get_room_location_id("Tomb") + 0,
@@ -470,7 +451,7 @@ upgrade_disks = {
     "Upgrade Disk - Archives": {
         LOCATION_ID_KEY: get_room_location_id("Archives") + 0,
         LOCATION_ROOM_KEY: "Archives",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: ["CABINET KEY 1"]} # I think this is the right key?
+        LOCATION_RULE: lambda state, world: state.has("CABINET KEY 1", world.player)
     },
     "Upgrade Disk - Trading Post Trade": {
         LOCATION_ID_KEY: get_room_location_id("Trading Post") + 1,
@@ -482,66 +463,64 @@ vault_keys = {
     "Vault Key 149": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 4, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: [
-                "Attic", 
-                "Rumpus Room", 
-                "Security", 
-                "Trophy Room", 
-                "SHOVEL", 
-                "Detector Shovel", 
-                "Jack Hammer", 
-                "Locker Room", 
-                "Satellite Raised"
-        ]}
-    },
-    "Vault Key 233": {
-        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 5, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
-        LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: [
-                "Office",
-                "Sauna",
-                "Wine Cellar",
-                "Lavatory",
-                "Morning Room",
-                "SHOVEL", 
-                "Detector Shovel", 
-                "Jack Hammer", 
-                "Locker Room", 
-                "Satellite Raised"
-        ]}
-    },
-    "Vault Key 304": {
-        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 6, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
-        LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: [
-                "Conference Room",
-                "Her Ladyship's Chambers",
-                "Walk-in Closet",
-                "Hovel",
-                "Spare Room",
-                "Drawing Room",
-                "SHOVEL", 
-                "Detector Shovel", 
-                "Jack Hammer", 
-                "Locker Room", 
-                "Satellite Raised"
-        ]}
-    },
-    "Vault Key 370": {
-        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 7, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
-        LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_REQUIREMENTS: {
-            LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: [
-            "Lost And Found",
+        LOCATION_RULE: lambda state, world: state.has_any([
             "SHOVEL", 
             "Detector Shovel", 
             "Jack Hammer", 
             "Locker Room", 
             "Satellite Raised"
-        ]}
+        ], world.player) or any(x for x in [
+            "Attic", 
+            "Rumpus Room", 
+            "Security", 
+            "Trophy Room", 
+        ] if state.can_reach_region(x, world.player))
+    },
+    "Vault Key 233": {
+        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 5, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: state.has_any([
+            "SHOVEL", 
+            "Detector Shovel", 
+            "Jack Hammer", 
+            "Locker Room", 
+            "Satellite Raised"
+        ], world.player) or any(x for x in [
+            "Office",
+            "Sauna",
+            "Wine Cellar",
+            "Lavatory",
+            "Morning Room",
+        ] if state.can_reach_region(x, world.player))
+    },
+    "Vault Key 304": {
+        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 6, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: state.has_any([
+            "SHOVEL", 
+            "Detector Shovel", 
+            "Jack Hammer", 
+            "Locker Room", 
+            "Satellite Raised"
+        ], world.player) or any(x for x in [
+            "Conference Room",
+            "Her Ladyship's Chambers",
+            "Walk-in Closet",
+            "Hovel",
+            "Spare Room",
+            "Drawing Room",
+        ] if state.can_reach_region(x, world.player))
+    },
+    "Vault Key 370": {
+        LOCATION_ID_KEY: get_room_location_id("Entrance Hall") + 7, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: state.has_any([
+            "SHOVEL", 
+            "Detector Shovel", 
+            "Jack Hammer", 
+            "Locker Room", 
+            "Satellite Raised"
+        ], world.player) or state.can_reach_region("Lost And Found", world.player)
     }
 }
 
@@ -553,7 +532,7 @@ sanctum_keys = {
     "Sanctum Key - Vault": {
         LOCATION_ID_KEY: get_room_location_id("Vault") + 1,
         LOCATION_ROOM_KEY: "Vault",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["VAULT KEY 370"]}
+        LOCATION_RULE: lambda state, world: state.has("VAULT KEY 370", world.player)
     },
     "Sanctum Key - Clock Tower": {
         LOCATION_ID_KEY: get_room_location_id("Clock Tower") + 0,
@@ -610,7 +589,7 @@ misc_locations = {
     "Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Shrine") + 0,
         LOCATION_ROOM_KEY: "Shrine",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL: ["Gift Shop - Cursed Coffers Purchased"]}
+        LOCATION_RULE: lambda state, world: state.has("Gift Shop - Cursed Coffers Purchased", world.player)
     },
     "Gasline Valve - Orchard": {
         LOCATION_ID_KEY: get_room_location_id("Apple Orchard") + 0,
@@ -631,7 +610,10 @@ misc_locations = {
     "Sundial": {
         LOCATION_ID_KEY: get_room_location_id("Apple Orchard") + 1,
         LOCATION_ROOM_KEY: "Apple Orchard",
-        LOCATION_REQUIREMENTS: {LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY: ["Burning Glass", "TORCH"]}
+        LOCATION_RULE: lambda state, world: state.has_any([
+            "Burning Glass",
+            "TORCH",
+        ], world.player),
     },
     "VAC Controls": {
         LOCATION_ID_KEY: get_room_location_id("Utility Closet") + 0,
@@ -647,6 +629,11 @@ misc_locations = {
 # TODO-1 add locations for other stuff later.
 # Chapel Keeper
 # Alzara Prophecies
+
+# Unique key locations
+# Unique/Semi-Unique item locations
+
+# Mirror Room Floorplan Duplicates?
 
 other_locations = trophies | safes_and_small_gates | moria_jia_boxes | floorplans | shop_items | upgrade_disks | keys | misc_locations
     
