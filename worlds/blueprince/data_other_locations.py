@@ -518,7 +518,74 @@ other_item_pickup = {
             "Den",
             "Pantry",
         ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
-    }
+    },
+    "GEAR WRENCH First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 7, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Toolshed",
+            "Lost And Found",
+            "Observatory", # Spiral of Stars
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+    },
+    "HALL PASS First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 8, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Classroom 1",
+            "Classroom 2",
+            "Classroom 3",
+            "Classroom 4",
+            "Classroom 5",
+            "Classroom 6",
+            "Classroom 7",
+            "Classroom 8",
+            "Classroom Exam",
+            "Dormitory",
+            "Lost And Found",
+            "Observatory", # Spiral of Stars
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+    },
+    "LOCK PICK KIT First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 9, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Archives",
+            "Attic",
+            "Rumpus Room",
+            "Security",
+            "Vault",
+            "Walk-in Closet",
+            "Wine Cellar",
+            "Workshop",
+            "Closed Exhibit",
+            "Garage",
+            "Locksmith",
+            "Mail Room",
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        or (state.can_reach_region("Darkroom", world.player) and state.can_reach_region("Utility Closet", world.player))
+        # Also spawns in Spare Bedroom (and its upgrades), but we aren't adding upgraded rooms seperately atm.
+        # Also, ignoring chance to spawn in trunks for the moment
+    },
+    "LUCKY RABBIT'S FOOT First Pickup": {
+        LOCATION_ID_KEY: get_room_location_id("Campsite") + 10, # Doesn't spawn there, but putting it there and adding spawn locations as requirements
+        LOCATION_ROOM_KEY: "Campsite",
+        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+            "Closet",
+            "Walk-in Closet",
+            "Rumpus Room",
+            "Nursery",
+            "Morning Room",
+            "Throne Room",
+            "Lost And Found",
+            "Gallery",
+            "Den",
+            "Ballroom",
+        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        or (state.can_reach_region("Lavatory", world.player) and state.can_reach_region("Shelter", world.player))
+        # Also spawns in Her Ladyship's Spare Room, Spare Servant's Quarters, and Spare Bedroom, but we aren't adding upgraded rooms seperately atm.
+    },
+    
 }
 
 upgrade_disks = {
