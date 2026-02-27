@@ -193,22 +193,19 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
             #         f"Entrance Hall {k}",
             #         lambda state: state.has(k, world.player) and state.can_reach_region("Room 46", world.player),
             #     ) # Has reached Room 46 or Day Count is >= 46, but < 363; Very rarily possible without either with a Silver Key, but that seems to be a bug
-
-            #
-            # Commenting this out because it breaks tests when the trophies aren't set up yet
-            #
-            # elif k == "Trophy Room":
-            #     entrance_hall.connect(
-            #         room,
-            #         "Entrance Hall Trophy Room",
-            #         lambda state: (
-            #                 state.can_reach_region("Room 46", world.player) or 
-            #                 state.can_reach_location("Full House Trophy", world.player) or 
-            #                 state.can_reach_location("Trophy of Invention", world.player) or 
-            #                 state.can_reach_location("Trophy of Drafting", world.player) or 
-            #                 state.can_reach_location("Trophy of Wealth", world.player)
-            #             ) and can_reach_pick_position("Trophy Room", world, state),
-            #     ) # Has reached Room 46 or has one of the 4 listed Trophies
+            elif k == "Trophy Room":
+                entrance_hall.connect(
+                    room,
+                    "Entrance Hall Trophy Room",
+                    lambda state: state.has("Trophy Room", world.player) and
+                        (
+                            state.can_reach_region("Room 46", world.player) or 
+                            state.can_reach_location("Full House Trophy", world.player) or 
+                            state.can_reach_location("Trophy of Invention", world.player) or 
+                            state.can_reach_location("Trophy of Drafting", world.player) or 
+                            state.can_reach_location("Trophy of Wealth", world.player)
+                        ) and can_reach_pick_position("Trophy Room", world, state),
+                ) # Has reached Room 46 or has one of the 4 listed Trophies
             elif k == "Gift Shop":
                 entrance_hall.connect(
                     room,
@@ -221,7 +218,6 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
                     "Entrance Hall Room 8",
                     lambda state: state.has("KEY 8", world.player) and can_reach_pick_position("Room 8", world, state),
                 ) # Has Key 8
-                # TODO: Add location for Key 8 in Gallery, maybe in Lost and Found as well
             elif k == "Secret Garden":
                 entrance_hall.connect(
                     room,
