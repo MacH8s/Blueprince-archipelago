@@ -7,7 +7,11 @@ from worlds.blueprince.constants import *
 class TestRegionAccess(BluePrinceTestBase):
     options = {
         "room_draft_sanity": True,
-        "item_sanity": True,
+        "standard_item_sanity": True,
+        "workshop_sanity": True,
+        "upgrade_disk_sanity": True,
+        "key_sanity": True,
+        "special_shop_sanity": True,
         "goal_type": GoalType.option_room46,
     }
 

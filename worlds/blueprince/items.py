@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from .data_rooms import rooms, core_rooms
-from .data_items import all_items, all_items_excluding_upgrade_items
+from .data_items import *
 from .constants import *
 
 from BaseClasses import Item, ItemClassification
@@ -388,18 +388,42 @@ def create_all_items(world: BluePrinceWorld) -> None:
 
     itempool: list[Item] = []
 
-    itempool += [world.create_item(k) for k in all_items_excluding_upgrade_items.keys()]
+    standard_item_list = [world.create_item(k) for k in other_items]
+    if world.options.standard_item_sanity:
+        itempool += standard_item_list
+    else:
+        [world.push_precollected(item) for item in standard_item_list]
 
-    # Create items for the rooms and either precollect them, or add them to the inventory
-    for k, v in rooms.items():
-        if k in core_rooms.keys():
-            continue
+    workshop_item_list = [world.create_item(k) for k in workshop_items]
+    if world.options.workshop_sanity:
+        itempool += workshop_item_list
+    else:
+        [world.push_precollected(item) for item in workshop_item_list]
 
-        room_item = world.create_item(k)
-        if world.options.room_draft_sanity:
-            itempool.append(room_item)
-        else:
-            world.push_precollected(room_item)
+    upgrade_disk_item_list = [world.create_item(k) for k in upgrade_disks]
+    if world.options.upgrade_disk_sanity:
+        itempool += upgrade_disk_item_list
+    else:
+        [world.push_precollected(item) for item in upgrade_disk_item_list]
+
+    key_item_list = [world.create_item(k) for k in keys]
+    if world.options.key_sanity:
+        itempool += key_item_list
+    else:
+        [world.push_precollected(item) for item in key_item_list]
+
+    special_shop_item_list = [world.create_item(k) for k in (showroom_items | armory_items)]
+    if world.options.special_shop_sanity:
+        itempool += special_shop_item_list
+    else:
+        [world.push_precollected(item) for item in special_shop_item_list]
+
+    room_item_list = [world.create_item(room) for room in rooms if room not in core_rooms]
+    if world.options.room_draft_sanity:
+        itempool += room_item_list
+    else:
+        [world.push_precollected(item) for item in room_item_list]
+
     #
     # Add Filler Stuff
     #

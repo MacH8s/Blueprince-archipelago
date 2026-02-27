@@ -109,6 +109,7 @@ class LockedTrunkCount(Range):
 
     default = 2
 
+# TODO: Aries Court and Atelier Mora Jai boxes toggles?
 
 # Filler Options.
 class FillerItemDistribution(OptionCounter):
