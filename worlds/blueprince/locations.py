@@ -56,35 +56,35 @@ def create_all_locations(world: BluePrinceWorld) -> None:
 
 def create_regular_locations(world: BluePrinceWorld) -> None:
 
-    armory = world.get_region("Armory")
+    armory = world.get_region("The Armory")
     
     # Ignoring chance to get Knight's Shield by digging with Jack Hammer for now.
     for k, v in armory_items.items():
         location_key = f"{k} First Pickup"
-        locations = get_location_names_with_ids([location_key])
-        armory.add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([location_key])
+        armory.add_locations(locs, BluePrinceLocation)
 
     for room_key, v in rooms.items():
         room = world.get_region(room_key)
 
         # Add fist room entrance
         location_key = f"{room_key} First Entering"
-        locations = get_location_names_with_ids([location_key])
-        room.add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([location_key])
+        room.add_locations(locs, BluePrinceLocation)
         # Add Nth locked trunk open
 
         for idx in range(1, world.options.locked_trunks + 1):
             if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0:
                 # TODO-2 this could be a comprehension, but this works for now.
                 location_key = f"{room_key} Locked Trunk {idx}"
-                locations = get_location_names_with_ids([location_key])
-                room.add_locations(locations, BluePrinceLocation)
+                locs = get_location_names_with_ids([location_key])
+                room.add_locations(locs, BluePrinceLocation)
 
     # Other locations
     for k, v in locations.items():
         location_key = k
-        locations = get_location_names_with_ids([location_key])
-        world.get_region(v[LOCATION_ROOM_KEY]).add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([location_key])
+        world.get_region(v[LOCATION_ROOM_KEY]).add_locations(locs, BluePrinceLocation)
 
         world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
     
@@ -95,7 +95,7 @@ def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, sta
         item_name = location_data[LOCATION_ITEM_KEY]
         if not state.has(item_name, world.player):
             return False
-        
+    
     if LOCATION_RULE not in location_data:
         return True
 
@@ -228,6 +228,15 @@ def create_events(world: BluePrinceWorld) -> None:
     world.get_region("Throne Room").add_event(
         "Throne Room North Lever",
         "North Lever Access",
+        location_type=BluePrinceLocation,
+        item_type=items.BluePrinceItem,
+    )
+
+    world.get_region("Apple Orchard").add_event(
+        "Raise Satellite",
+        "Satellite Raised",
+        lambda state: state.has_all(["MICROCHIP 1", "MICROCHIP 2", "MICROCHIP 3"], world.player) 
+        and state.can_reach_location("Scorch Sundial", world.player),
         location_type=BluePrinceLocation,
         item_type=items.BluePrinceItem,
     )

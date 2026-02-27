@@ -1,3 +1,7 @@
+import typing
+
+from BaseClasses import CollectionState, Location
+from worlds.AutoWorld import call_all
 from worlds.blueprince.options import GoalType
 from worlds.blueprince.test import BluePrinceTestBase
 from worlds.blueprince.data_rooms import rooms, core_rooms
@@ -156,3 +160,54 @@ class TestRegionAcess(BluePrinceTestBase):
         self.assertFalse(self.can_reach_region("Room 8"), "Room 8 should not be reachable without having Key 8")
         self.collect_by_name("KEY 8")
         self.assertTrue(self.can_reach_region("Room 8"), "Room 8 should be reachable after having Key 8")
+
+    def test_can_reach_showroom_items(self):
+        self.collect_by_name("Showroom")
+        self.assertTrue(self.can_reach_region("Showroom"), "Showroom should be reachable after having the Showroom item")
+        self.assertTrue(self.can_reach_location("CHRONOGRAPH First Pickup"), "CHRONOGRAPH First Pickup should be reachable after having the Showroom item")
+
+    def test_can_reach_tunnel_floorplan_after_crates(self):
+        self.collect_by_name(["Laboratory", "Boiler Room", "Parlor", "Clock Tower", "Observatory", "Attic", "Study", "Office", "MICROCHIP 1", "MICROCHIP 2", "MICROCHIP 3", "TORCH", "The Armory", "Garage", "Hovel", "Utility Closet", "Schoolhouse"])
+        self.assertTrue(self.can_reach_region("Tunnel Area Past Crates"), "Tunnel Floorplan should be reachable after having the crates")
+
+    def test_can_reach_compass(self):
+        self.collect_by_name(["Closet", "COMPASS"])
+        self.debug_print_regions_and_items(True)
+        self.assertTrue(self.can_reach_location("COMPASS First Pickup"), "COMPASS First Pickup should be reachable after having ")
+
+    def test_can_craft_electromagnet(self):
+        # TODO:
+        pass
+
+    def test_fill_(self):
+        """Generates a multiworld and validates placements with the defined options"""
+        if not (self.run_default_tests and self.constructed):
+            return
+        from Fill import distribute_items_restrictive
+    
+        # basically a shortened reimplementation of this method from core, in order to force the check is done
+        def fulfills_accessibility() -> bool:
+            locations = list(self.multiworld.get_locations(1))
+            reached_locations = []
+            collected_items = []
+            state = CollectionState(self.multiworld)
+            while locations:
+                sphere: typing.List[Location] = []
+                for n in range(len(locations) - 1, -1, -1):
+                    if locations[n].can_reach(state):
+                        sphere.append(locations.pop(n))
+                self.assertTrue(sphere or self.multiworld.worlds[1].options.accessibility == "minimal",
+                                f"Unreachable locations: {locations};\nReached Locations: {reached_locations};\nCollected Items: {collected_items}")
+                if not sphere:
+                    break
+                for location in sphere:
+                    if location.item:
+                        state.collect(location.item, True, location)
+                        reached_locations.append(location)
+                        collected_items.append(location.item.name)
+            return self.multiworld.has_beaten_game(state, self.player)
+    
+        with self.subTest("Game", game=self.game, seed=self.multiworld.seed):
+            distribute_items_restrictive(self.multiworld)
+            call_all(self.multiworld, "post_fill")
+            self.assertTrue(fulfills_accessibility(), "Collected all locations, but can't beat the game.")
