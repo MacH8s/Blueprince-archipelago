@@ -16,15 +16,6 @@ ITEM_NAME_TO_ID = (
     {
         # Special Items
         "Wind-up Key": 1024,
-        #  Workshop Items
-        "Burning Glass": 3001,
-        "Detector Shovel": 3002,
-        "Dowsing Rod": 3003,
-        "Electromagnet": 3004,
-        "Jack Hammer": 3005,
-        "Lucky Purse": 3006,
-        "Pick Sound Amplifier": 3007,
-        "Power Hammer": 3008,
         #
         # Extra "Stuff" Items
         #
@@ -102,18 +93,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = (
     {
         # Special Items
         "Wind-up Key": ItemClassification.progression,
-        #  Workshop Items
-        "Burning Glass": ItemClassification.progression,
-        "Detector Shovel": ItemClassification.progression,
-        "Dowsing Rod": ItemClassification.useful,
-        "Electromagnet": ItemClassification.useful,
-        "Jack Hammer": ItemClassification.progression,
-        "Lucky Purse": ItemClassification.useful,
-        "Pick Sound Amplifier": ItemClassification.useful,
-        "Power Hammer": ItemClassification.progression,
         #
         # Extra "Stuff" Items
-        #
         #
         "Extra Allowance 1": ItemClassification.filler,
         "Extra Allowance 2": ItemClassification.filler,

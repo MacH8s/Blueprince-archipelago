@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from BaseClasses import ItemClassification, Location
+from BaseClasses import CollectionState, ItemClassification, Location
 
 from .options import GoalType
 
 from . import items
 from .constants import *
 
-from .data_rooms import rooms
+from .data_rooms import rooms, blue_rooms
 from .data_items import showroom_items, armory_items, other_items
 
 if TYPE_CHECKING:
@@ -83,7 +83,6 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
                 locations = get_location_names_with_ids([location_key])
                 room.add_locations(locations, BluePrinceLocation)
 
-
 def create_events(world: BluePrinceWorld) -> None:
 
     campsite = world.get_region("Campsite")  # For Sanctum Solves Victory.
@@ -144,9 +143,24 @@ def create_events(world: BluePrinceWorld) -> None:
         throne_room.add_event(
             "Ascended The Throne",
             "Victory",
+            lambda state: state.has("CROWN", world.player) and
+            state.has("ROYAL SCEPTER", world.player) and
+            state.has("CURSED EFFIGY", world.player) and
+            state.has_from_list(blue_rooms.keys(), world.player, 8),
             location_type=BluePrinceLocation,
             item_type=items.BluePrinceItem,
         )
+
+    throne_room.add_event(
+        "Ascended The Throne",
+        "Blue Door Access",
+        lambda state: state.has("CROWN", world.player) and
+        state.has("ROYAL SCEPTER", world.player) and
+        state.has("CURSED EFFIGY", world.player) and
+        state.has_from_list(blue_rooms.keys(), world.player, 8),
+        location_type=BluePrinceLocation,
+        item_type=items.BluePrinceItem,
+    )
 
     # Set Victory as entering the atelier and reading the blue prints.
     if world.options.goal_type.value == GoalType.option_blueprints:
@@ -208,3 +222,4 @@ def create_events(world: BluePrinceWorld) -> None:
             location_type=BluePrinceLocation,
             item_type=items.BluePrinceItem,
         )
+        

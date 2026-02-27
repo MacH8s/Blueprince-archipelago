@@ -19,6 +19,9 @@ ROOM_LAYOUT_TYPE_KEY = "room_layout"
 # room location type key is a key used to set if a room is from the outer rooms
 OUTER_ROOM_KEY = "is_outer_room"
 
+INNER_ROOM_KEY = "is_inner_room"
+LOCATION_COUNT_KEY = "location_count"
+
 
 ##################
 # ITEM CONSTANTS #
@@ -65,6 +68,26 @@ ITEM_ITEM_CLASSIFICATION_KEY = "item_classification"
 # Used to denote that no index exists in the main item list.
 NO_ITEM_ELEMENT_INDEX = -1
 
+##########################
+# LOCATION KEY CONSTANTS #
+##########################
+
+LOCATION_ID_KEY = "location_id"
+LOCATION_REQUIREMENTS = "requirements"
+LOCATION_ROOM_KEY = "location_room"
+
+##################################
+# LOCATION REQUIREMENT CONSTANTS #
+##################################
+
+LOCATION_REQUIREMENT_TYPE_ROOM_COUNT = "room_count"
+LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS = "has_all_rooms"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL = "has_items_all"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY = "has_items_any"
+LOCATION_REQUIREMENT_TYPE_HAS_ITEM_COUNTS = "has_item_counts"
+LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS = "has_regions_access"
+LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS = "has_locations_access"
+LOCATION_REQUIREMENT_TYPE_COUNT_LOCATIONS_ACCESS = "count_locations_access"
 
 #####################
 # CONTROL CONSTANTS #
@@ -72,8 +95,7 @@ NO_ITEM_ELEMENT_INDEX = -1
 
 # Enable room logic, when set to true, allows the rooms to be loaded into the world as items to be found.
 # When false, "all rooms" will be available to the player "at the start"
-ENABLE_ROOM_LOGIC = False
-
+ENABLE_ROOM_LOGIC = True
 
 ########################
 # ROOM LOGIC POSITIONS #
@@ -96,6 +118,7 @@ ENABLE_ROOM_LOGIC = False
 
 ROOM_PICK_POSITION_CENTER_TIER_1 = "CENTER - Tier 1"
 ROOM_PICK_POSITION_CENTER_TIER_1_GEMS = "CENTER - Tier 1 G"
+ROOM_PICK_POSITION_CENTER_TIER_1_FOUNDATION = "CENTER - Tier 1 Foundation"
 ROOM_PICK_POSITION_CENTER_TIER_2 = "CENTER - Tier 2"
 ROOM_PICK_POSITION_CENTER_TIER_2_GEMS = "CENTER - Tier 2 G"
 ROOM_PICK_POSITION_CENTER_TIER_3 = "CENTER - Tier 3"
@@ -128,3 +151,5 @@ ROOM_PICK_POSITION_NORTH_PIERCE_GEMS = "NORTH PIERCE G"
 ROOM_PICK_POSITION_SOUTH_PIERCE = "SOUTH PIERCE"
 ROOM_PICK_POSITION_STANDALONE = "STANDALONE ARRAY"
 ROOM_PICK_POSITION_STANDALONE_FULL = "STANDALONE ARRAY FULL"
+ROOM_PICK_POSITION_ANTECHAMBER = "ANTECHAMBER"
+ROOM_PICK_POSITION_ROOM_8 = "ROOM 8"
