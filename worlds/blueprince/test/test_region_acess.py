@@ -38,7 +38,7 @@ class TestRegionAcess(BluePrinceTestBase):
         self.assertFalse(self.can_reach_region("Garage"), "Garage should not be reachable on its own")
         self.collect_by_name("Hallway")
         self.collect_by_name("Office")
-        self.debug_print_regions_and_items()
+        self.debug_print_regions_items_locations()
         self.assertTrue(self.can_reach_region("Garage"), "Garage should be reachable after collecting at least 1 I piece and at least 1 J piece as items")
 
     def test_outer_room_requires_garage_utility_closet(self) -> None:
@@ -47,7 +47,7 @@ class TestRegionAcess(BluePrinceTestBase):
         self.collect_by_name("Utility Closet")
         self.assertFalse(self.can_reach_region("Outer Room"), "Outer Room should not be reachable without having the Garage as an item")
         self.collect_by_name("Garage")
-        self.debug_print_regions_and_items()
+        self.debug_print_regions_items_locations()
         self.assertTrue(self.can_reach_region("Outer Room"), "Outer Room should be reachable after collecting the Garage as an item")
     
     def test_outer_room_requires_garage_boiler_room(self) -> None:
@@ -85,7 +85,7 @@ class TestRegionAcess(BluePrinceTestBase):
         self.collect_by_name("Boiler Room")
         self.assertFalse(self.can_reach_region("Blackbridge Grotto"), "Blackbridge Grotto should not be reachable without having the Laboratory as an item")
         self.collect_by_name("Laboratory")
-        self.debug_print_regions_and_items()
+        self.debug_print_regions_items_locations()
         self.assertTrue(self.can_reach_region("Blackbridge Grotto"), "Blackbridge Grotto should be reachable after collecting the Boiler Room as an item")
 
     def test_the_precipice_requires_gas_valves(self) -> None:
@@ -119,11 +119,10 @@ class TestRegionAcess(BluePrinceTestBase):
 
     def test_the_underpass_requires_reservoir_both_sides(self) -> None:
         self.assertFalse(self.can_reach_region("The Underpass"), "The Underpass should not be reachable without having the Reservoir on both sides")
-        self.collect_by_name("Power Hammer")
-        self.debug_print_regions_and_items()
+        self.collect_by_name(["Power Hammer", "BASEMENT KEY"])
         self.assertFalse(self.can_reach_region("The Underpass"), "The Underpass should not be reachable without having the Reservoir on both sides")
-        self.collect_by_name("Pump Room")
-        self.collect_by_name("BASEMENT KEY")
+        self.collect_by_name(["Pump Room"])
+        self.debug_print_regions_items_locations(True)
         self.assertTrue(self.can_reach_region("The Underpass"), "The Underpass should be reachable after having the Reservoir on both sides")
     
     def test_aries_court_requires_chess_pieces(self) -> None:
@@ -152,7 +151,7 @@ class TestRegionAcess(BluePrinceTestBase):
         self.collect_by_name("The Foundation")
         self.assertFalse(self.can_reach_region("Basement"), "Basement should not be reachable without having the Basement Key")
         self.collect_by_name("BASEMENT KEY")
-        self.debug_print_regions_and_items()
+        self.debug_print_regions_items_locations()
         self.assertTrue(self.can_reach_region("Basement"), "Basement should be reachable after having the Foundation and Basement Key")
     
     def test_room_8_requires_key_8(self) -> None:
@@ -172,42 +171,9 @@ class TestRegionAcess(BluePrinceTestBase):
 
     def test_can_reach_compass(self):
         self.collect_by_name(["Closet", "COMPASS"])
-        self.debug_print_regions_and_items(True)
+        self.debug_print_regions_items_locations(True)
         self.assertTrue(self.can_reach_location("COMPASS First Pickup"), "COMPASS First Pickup should be reachable after having ")
 
     def test_can_craft_electromagnet(self):
-        # TODO:
-        pass
-
-    def test_fill_(self):
-        """Generates a multiworld and validates placements with the defined options"""
-        if not (self.run_default_tests and self.constructed):
-            return
-        from Fill import distribute_items_restrictive
-    
-        # basically a shortened reimplementation of this method from core, in order to force the check is done
-        def fulfills_accessibility() -> bool:
-            locations = list(self.multiworld.get_locations(1))
-            reached_locations = []
-            collected_items = []
-            state = CollectionState(self.multiworld)
-            while locations:
-                sphere: typing.List[Location] = []
-                for n in range(len(locations) - 1, -1, -1):
-                    if locations[n].can_reach(state):
-                        sphere.append(locations.pop(n))
-                self.assertTrue(sphere or self.multiworld.worlds[1].options.accessibility == "minimal",
-                                f"Unreachable locations: {locations};\nReached Locations: {reached_locations};\nCollected Items: {collected_items}")
-                if not sphere:
-                    break
-                for location in sphere:
-                    if location.item:
-                        state.collect(location.item, True, location)
-                        reached_locations.append(location)
-                        collected_items.append(location.item.name)
-            return self.multiworld.has_beaten_game(state, self.player)
-    
-        with self.subTest("Game", game=self.game, seed=self.multiworld.seed):
-            distribute_items_restrictive(self.multiworld)
-            call_all(self.multiworld, "post_fill")
-            self.assertTrue(fulfills_accessibility(), "Collected all locations, but can't beat the game.")
+        self.collect_by_name(["Electromagnet", "COMPASS", "BATTERY PACK", "Workshop", "Closet", "Bedroom"])
+        self.assertTrue(self.can_reach_location("Electromagnet First Craft"), "Electromagnet should be reachable after having the required items")

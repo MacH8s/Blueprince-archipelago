@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from .world import BluePrinceWorld
 
 def create_and_connect_regions(world: BluePrinceWorld) -> None:
-
+    world.explicit_indirect_conditions = False
     ##################
     # CREATE REGIONS #
     ##################
@@ -498,7 +498,7 @@ def create_and_connect_regions(world: BluePrinceWorld) -> None:
         "Reservoir Gear Side To Reservoir Bottom",
         lambda state: state.has("Pump Room", world.player) and state.has("Boiler Room", world.player) and state.can_reach_region("Basement", world.player),
     )  # Pump Room and boiler room (both this and safehouse require ability to get to gear side NOT through well side.)
-    rotating_gear.connect(
+    gear_to_underpass = rotating_gear.connect(
         the_underpass,
         "Rotating Gear To Underpass",
         lambda state: state.can_reach_region("Reservoir Fountain Side", world.player) and state.can_reach_region("Reservoir Gear Side", world.player),

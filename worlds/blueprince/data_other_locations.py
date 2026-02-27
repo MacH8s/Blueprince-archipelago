@@ -86,7 +86,7 @@ trophies = {
     "Explorer's Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 1),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: state.has_all(rooms.keys(), world.player)
+        LOCATION_RULE: lambda state, world: state.has_all([x for x in rooms if x not in core_rooms], world.player)
     },
     "Trophy of Sigils": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 2),
@@ -1134,7 +1134,7 @@ workshop_contraptions = {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 5),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Electromagnet",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["MAGNET", "BATTERY PACK"])
+        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["COMPASS", "BATTERY PACK"])
     },
     "Lucky Purse First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 6),
@@ -1236,7 +1236,7 @@ vault_keys = {
     "Vault Key 149": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 4), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ID_KEY: "Vault Key 149",
+        LOCATION_ID_KEY: "VAULT KEY 149",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Attic", 
@@ -1250,7 +1250,7 @@ vault_keys = {
     "Vault Key 233": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 5), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ITEM_KEY: "Vault Key 233",
+        LOCATION_ITEM_KEY: "VAULT KEY 233",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
         or any(state.can_reach_region(x, world.player) for x in [
             "Office",
@@ -1266,7 +1266,7 @@ vault_keys = {
     "Vault Key 304": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 6), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ITEM_KEY: "Vault Key 304",
+        LOCATION_ITEM_KEY: "VAULT KEY 304",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Conference Room",
@@ -1280,7 +1280,7 @@ vault_keys = {
     "Vault Key 370": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 7), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ITEM_KEY: "Vault Key 370",
+        LOCATION_ITEM_KEY: "VAULT KEY 370",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or state.can_reach_region("Lost And Found", world.player)
     }
@@ -1356,7 +1356,7 @@ misc_locations = {
     "Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
         LOCATION_ROOM_KEY: "Shrine",
-        LOCATION_RULE: lambda state, world: state.has("Gift Shop - Cursed Coffers Purchased", world.player)
+        # LOCATION_RULE: lambda state, world: state.has("Gift Shop - Cursed Coffers Purchased", world.player)
     },
     "Gasline Valve - Orchard": {
         LOCATION_ID_KEY: get_room_location_id("Apple Orchard", 0),
