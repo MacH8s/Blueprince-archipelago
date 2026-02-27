@@ -27,6 +27,8 @@ LOCATION_COUNT_KEY = "location_count"
 # ITEM CONSTANTS #
 ##################
 
+ROOM_MULTIPLIER = 100_000
+
 # One of the room layout types. Specifically, for dead-end rooms
 ROOM_LAYOUT_TYPE_D = "room_layout_type_d"
 # One of the room layout types. Specifically, for rooms with 3 entrances

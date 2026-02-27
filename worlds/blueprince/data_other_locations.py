@@ -1,5 +1,4 @@
 from BaseClasses import CollectionState, ItemClassification
-from worlds.blueprince.world import BluePrinceWorld
 
 from .constants import *
 from .data_rooms import rooms, core_rooms, room_layout_lists
@@ -12,12 +11,15 @@ def get_room_location_id(room_name: str, n: int = 0) -> int:
     if room_name not in room_location_mem:
         room_location_mem[room_name] = []
 
-    if n not in room_location_mem[room_name]:
+    if n in room_location_mem[room_name]:
         raise Exception(f"Duplicate location ID for {room_name} {n}")
     
-    return rooms[room_name][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + n
+    if room_name in rooms:
+        return rooms[room_name][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + n
+    else:
+        return (room_name.__hash__() % 100 + 1000) * ROOM_MULTIPLIER + n
 
-def can_reach_item_location(item_name: str, state: CollectionState, world: BluePrinceWorld) -> bool:
+def can_reach_item_location(item_name: str, state: CollectionState, world) -> bool:
     loc_name = item_name + " First Pickup"
     if loc_name in locations:
         return state.can_reach_location(loc_name, world.player)
@@ -176,8 +178,8 @@ safes_and_small_gates = {
         LOCATION_ROOM_KEY: "Study",
     },
     "Underpass Gate": {
-        LOCATION_ID_KEY: get_room_location_id("Underpass", 0),
-        LOCATION_ROOM_KEY: "Underpass",
+        LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
+        LOCATION_ROOM_KEY: "The Underpass",
         LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
     },
     "Shelter Safe": {
@@ -207,8 +209,8 @@ moria_jia_boxes = {
         LOCATION_ROOM_KEY: "Closed Exhibit",
     },
     "Underpass Moria Jia Box": {
-        LOCATION_ID_KEY: get_room_location_id("Underpass", 0),
-        LOCATION_ROOM_KEY: "Underpass",
+        LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
+        LOCATION_ROOM_KEY: "The Underpass",
     },
     "Tomb Moria Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Tomb", 0),
@@ -1069,7 +1071,7 @@ unique_item_pickup = {
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
     },
     "MICROCHIP 2 First Pickup": {
-        LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 0),
+        LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 10),
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "MICROCHIP 2",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world)

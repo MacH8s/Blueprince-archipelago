@@ -16,8 +16,6 @@ from .data_other_locations import locations
 if TYPE_CHECKING:
     from .world import BluePrinceWorld
 
-ROOM_MULTIPLIER = 100_000
-
 LOCATION_NAME_TO_ID = (
     {
         k: v[LOCATION_ID_KEY]
