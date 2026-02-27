@@ -92,9 +92,15 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
     
 def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, state: CollectionState) -> bool:
     location_data = locations[location_key]
-
+    
+    if LOCATION_ITEM_KEY in location_data:
+        item_name = location_data[LOCATION_ITEM_KEY]
+        if not state.has(item_name, world.player):
+            return False
+        
     if LOCATION_RULE not in location_data:
         return True
+
     rule = location_data[LOCATION_RULE]
 
     return rule(state, world)
