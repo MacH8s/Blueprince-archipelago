@@ -216,11 +216,11 @@ def get_random_filler_item_name(world: BluePrinceWorld) -> str:
                     return "Trap Take Steps 1"
             case "star_traps":
                 if count < 20:
-                    return "Trap Take Stars 5"
+                    return "Trap Lose Stars 5"
                 elif count < 60:
-                    return "Trap Take Stars 2"
+                    return "Trap Lose Stars 2"
                 else:
-                    return "Trap Take Stars 1"
+                    return "Trap Lose Stars 1"
     else:
         choice = world.random.choices(
             list(world.options.filler_item_distribution.valid_keys),
