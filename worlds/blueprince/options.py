@@ -31,7 +31,7 @@ class RoomDraftSanity(Toggle):
 class StandardItemSanity(Toggle):
     """
     This option enables standard item sanity checks.
-    That is, standard items can not be received until they are received from the server.
+    That is, standard items can not be picked up or used until they are unlocked.
     """
 
     display_name = "Dev: Standard Item Sanity"
@@ -43,7 +43,7 @@ class StandardItemSanity(Toggle):
 class WorkshopSanity(Toggle):
     """
     This option enables workshop item sanity checks.
-    That is, workshop crafted items can not be received until they are received from the server.
+    That is, workshop crafted items can not be crafted until they are unlocked.
     """
 
     display_name = "Dev: Workshop Sanity"
@@ -55,7 +55,7 @@ class WorkshopSanity(Toggle):
 class UpgradeDiskSanity(Toggle):
     """
     This option enables upgrade disk sanity checks.
-    That is, upgrade disk items can not be received until they are received from the server.
+    That is, upgrade disk items can not be picked up until they are unlocked.
     """
 
     display_name = "Dev: Upgrade Disk Sanity"
@@ -67,7 +67,7 @@ class UpgradeDiskSanity(Toggle):
 class KeySanity(Toggle):
     """
     This option enables key sanity checks.
-    That is, special keys can not be received until they are received from the server.
+    That is, special keys can not be picked up until they are unlocked.
     """
 
     display_name = "Dev: Key Sanity"
@@ -79,7 +79,7 @@ class KeySanity(Toggle):
 class SpecialShopSanity(Toggle):
     """
     This option enables sanity checks for The Armory and Showroom.
-    That is, special shop items can not be received until they are received from the server.
+    That is, special shop items can not be purchased until they are unlocked.
     """
 
     display_name = "Dev: Special Shop Sanity"
@@ -102,6 +102,29 @@ class LockedTrunkCount(Range):
     range_end = 100
 
     default = 2
+
+class ItemLogicMode(Choice):
+    """
+    This option controls which possible item spawns are considered for an item being obtainable.
+
+    - **default:** Only common, simple spawn locations are considered.
+    - **rare:** All simple spawn locations are considered.
+    - **complex:** All common spawn locations are considered.
+    - **rare_complex:** Everything is considered except ||Spiral of Stars||, ||Advanced Experiments||, and ||Freight Mail||.
+    - **extreme:** Everything is considered.
+
+    """
+
+    display_name = "Item Logic Mode"
+
+    rich_text_doc = True
+    option_default = 0
+    option_rare = 1
+    option_complex = 2
+    option_rare_complex = 3
+    option_extreme = 4
+
+    default = 0
 
 # TODO: Aries Court and Atelier Mora Jai boxes toggles?
 
