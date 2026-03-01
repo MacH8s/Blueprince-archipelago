@@ -15,9 +15,9 @@ def get_room_location_id(room_name: str, n: int = 0) -> int:
         raise Exception(f"Duplicate location ID for {room_name} {n}")
     
     if room_name in rooms:
-        return rooms[room_name][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + n
+        return rooms[room_name][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + n + 1000
     else:
-        return (room_name.__hash__() % 100 + 1000) * ROOM_MULTIPLIER + n
+        return (room_name.__hash__() % 10000000 + 1000) * ROOM_MULTIPLIER + n + 1000
 
 def can_reach_item_location(item_name: str, state: CollectionState, world) -> bool:
     loc_name = item_name + " First Pickup"
@@ -71,7 +71,7 @@ trophies = {
         LOCATION_ID_KEY: get_room_location_id("Room 46", 0),
         LOCATION_ROOM_KEY: "Room 46",
     },
-    "Bullesye Trophy": {
+    "Bullseye Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Billiard Room", 0),
         LOCATION_ROOM_KEY: "Billiard Room",
     },
@@ -147,7 +147,7 @@ trophies = {
     #             "Trophy of Drafting",
     #             "Trophy of Wealth",
     #             "Inheritance Trophy",
-    #             "Bullesye Trophy",
+    #             "Bullseye Trophy",
     #             "A Logical Trophy",
     #             "Trophy 8",
     #             "Explorer's Trophy",
@@ -201,7 +201,7 @@ safes_and_small_gates = {
 
 aries_court_mora_jia_boxes = {
     f"Aries Court Mora Jia Box {n}": {
-        LOCATION_ID_KEY: get_room_location_id("Aries Court", n - 1),
+        LOCATION_ID_KEY: get_room_location_id("Aries Court", n),
         LOCATION_ROOM_KEY: "Aries Court",
     } for n in range(1, 9)
 }
@@ -211,12 +211,12 @@ mora_jia_boxes = {
         LOCATION_ID_KEY: get_room_location_id("Master Bedroom", 0),
         LOCATION_ROOM_KEY: "Master Bedroom",
     },
-    "Closed Exhbit Mora Jia Box": {
+    "Closed Exhibit Mora Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Closed Exhibit", 0),
         LOCATION_ROOM_KEY: "Closed Exhibit",
     },
     "Underpass Mora Jia Box": {
-        LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
+        LOCATION_ID_KEY: get_room_location_id("The Underpass", 1),
         LOCATION_ROOM_KEY: "The Underpass",
     },
     "Tomb Mora Jia Box": {
@@ -231,12 +231,12 @@ mora_jia_boxes = {
         LOCATION_ID_KEY: get_room_location_id("Tunnel", 0),
         LOCATION_ROOM_KEY: "Tunnel",
     },
-    "Solaium Mora Jia Box": {
+    "Solarium Mora Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Solarium", 0),
         LOCATION_ROOM_KEY: "Solarium",
     },
     "Lost And Found Mora Jia Box": {
-        LOCATION_ID_KEY: get_room_location_id("Lost And Found", 0),
+        LOCATION_ID_KEY: get_room_location_id("Lost And Found", 1),
         LOCATION_ROOM_KEY: "Lost And Found",
     },
     "Throne of the Blue Prince Mora Jia Box": {
@@ -277,7 +277,7 @@ mora_jia_boxes = {
         LOCATION_ROOM_KEY: "Nuance Sanctum",
     }
 } | aries_court_mora_jia_boxes
-# not adding atelier boxes, since they are bascially already at the latest goal
+# not adding atelier boxes, since they are basically already at the latest goal
 
 drafting_studio_additions = {
     "Dovecote Floorplan": {
@@ -334,7 +334,7 @@ found_floorplans = {
         NONSANITY_LOCATION_KEY: "Mechanarium"
     },
     "Treasure Trove Floorplan": {
-        LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
+        LOCATION_ID_KEY: get_room_location_id("The Underpass", 2),
         LOCATION_ROOM_KEY: "The Underpass",
         LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Boiler Room", world.player),
         NONSANITY_LOCATION_KEY: "Treasure Trove"
@@ -788,7 +788,7 @@ standard_item_pickup = {
         LOCATION_RULE_EXTREME: lambda state, world: (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player)),
     },
     "REPELLENT First Pickup": {
-        LOCATION_ID_KEY: get_room_location_id("Lost And Found", 0),
+        LOCATION_ID_KEY: get_room_location_id("Lost And Found", 2),
         LOCATION_ROOM_KEY: "Lost And Found",
         LOCATION_ITEM_KEY: "REPELLENT",
     },
@@ -871,7 +871,7 @@ standard_item_pickup = {
         or (state.can_reach_region("Trading Post", world.player) and any(can_reach_item_location(item, state, world) for item in get_trading_post_offers("SHOVEL"))),
         # Also spawns in Spare Greenhouse, Spare Patio, Space Terrace, and Spare Veranda, but we aren't adding upgraded rooms seperately atm.
 
-        
+
     },
     "SLEDGE HAMMER First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 17), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
@@ -1274,7 +1274,7 @@ upgrade_disks = {
         LOCATION_ROOM_KEY: "Morning Room",
     },
     "Upgrade Disk - Her Ladyship's Chambers": {
-        LOCATION_ID_KEY: get_room_location_id("Her Ladyship's Chambers", 0),
+        LOCATION_ID_KEY: get_room_location_id("Her Ladyship's Chambers", 1),
         LOCATION_ROOM_KEY: "Her Ladyship's Chambers",
     },
     "Upgrade Disk - Commissary": {
@@ -1296,7 +1296,7 @@ upgrade_disks = {
         LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("VAULT KEY 304", state, world)
     },
     "Upgrade Disk - Trading Post Dynamite": {
-        LOCATION_ID_KEY: get_room_location_id("Trading Post", 0),
+        LOCATION_ID_KEY: get_room_location_id("Trading Post", 1),
         LOCATION_ROOM_KEY: "Trading Post",
         LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(can_reach_item_location(item, state, world) for item in ["Burning Glass", "TORCH"]),
     },
@@ -1310,7 +1310,7 @@ upgrade_disks = {
         ]) or state.can_reach_region("Furnace", world.player)
     },
     "Upgrade Disk - Tomb": {
-        LOCATION_ID_KEY: get_room_location_id("Tomb", 0),
+        LOCATION_ID_KEY: get_room_location_id("Tomb", 1),
         LOCATION_ROOM_KEY: "Tomb",
     },
     "Upgrade Disk - The Foundation": {
@@ -1335,7 +1335,7 @@ upgrade_disks = {
         LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("CABINET KEY 1", state, world)
     },
     "Upgrade Disk - Trading Post Trade": {
-        LOCATION_ID_KEY: get_room_location_id("Trading Post", 1),
+        LOCATION_ID_KEY: get_room_location_id("Trading Post", 2),
         LOCATION_ROOM_KEY: "Trading Post",
     },
 }
@@ -1472,7 +1472,7 @@ misc_locations = {
         LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Cursed Coffers": {
-        LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
+        LOCATION_ID_KEY: get_room_location_id("Shrine", 1),
         LOCATION_ROOM_KEY: "Shrine",
         # LOCATION_RULE: lambda state, world: state.has("Gift Shop - Cursed Coffers Purchased", world.player)
     },

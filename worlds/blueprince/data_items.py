@@ -131,99 +131,99 @@ sanctum_keys = {
 keys = {
     "CAR KEYS": {
         ITEM_ELEMENT_INDEX_KEY: 3,
-        ITEM_ID_KEY: 1003,
+        ITEM_ID_KEY: 10003,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "KEYCARD": {
         ITEM_ELEMENT_INDEX_KEY: 10,
-        ITEM_ID_KEY: 1010,
+        ITEM_ID_KEY: 10010,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "SILVER KEY": {
         ITEM_ELEMENT_INDEX_KEY: 19,
-        ITEM_ID_KEY: 1019,
+        ITEM_ID_KEY: 10019,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "KEY 8": {
         ITEM_ELEMENT_INDEX_KEY: 27,
-        ITEM_ID_KEY: 1027,
+        ITEM_ID_KEY: 10027,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "BASEMENT KEY": {
         ITEM_ELEMENT_INDEX_KEY: 0,
-        ITEM_ID_KEY: 1000,
+        ITEM_ID_KEY: 10000,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "VAULT KEY 149": {
         ITEM_ELEMENT_INDEX_KEY: 22,
-        ITEM_ID_KEY: 1022,
+        ITEM_ID_KEY: 10022,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "VAULT KEY 233": {
         ITEM_ELEMENT_INDEX_KEY: 23,
-        ITEM_ID_KEY: 1023,
+        ITEM_ID_KEY: 10023,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "VAULT KEY 304": {
         ITEM_ELEMENT_INDEX_KEY: 24,
-        ITEM_ID_KEY: 1024,
+        ITEM_ID_KEY: 10024,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "VAULT KEY 370": {
         ITEM_ELEMENT_INDEX_KEY: 25,
-        ITEM_ID_KEY: 1025,
+        ITEM_ID_KEY: 10025,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "DIARY KEY": {
         ITEM_ELEMENT_INDEX_KEY: 42,
-        ITEM_ID_KEY: 1042,
+        ITEM_ID_KEY: 10042,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "CABINET KEY 1": {
         ITEM_ELEMENT_INDEX_KEY: 45,
-        ITEM_ID_KEY: 1045,
+        ITEM_ID_KEY: 10045,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "CABINET KEY 2": {
         ITEM_ELEMENT_INDEX_KEY: 46,
-        ITEM_ID_KEY: 1046,
+        ITEM_ID_KEY: 10046,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "CABINET KEY 3": {
         ITEM_ELEMENT_INDEX_KEY: 46,
-        ITEM_ID_KEY: 1047,
+        ITEM_ID_KEY: 10047,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "PRISM KEY_0": {
         # Known exception to formatting. Keeping consistent with game format.
         ITEM_ELEMENT_INDEX_KEY: 50,
-        ITEM_ID_KEY: 1050,
+        ITEM_ID_KEY: 10050,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "KEY of Aries": {
         # Known exception to formatting. Keeping consistent with game format.
         ITEM_ELEMENT_INDEX_KEY: 51,
-        ITEM_ID_KEY: 1051,
+        ITEM_ID_KEY: 10051,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "SECRET GARDEN KEY": {
         ITEM_ELEMENT_INDEX_KEY: 17,
-        ITEM_ID_KEY: 1017,
+        ITEM_ID_KEY: 10017,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "MICROCHIP 1": {
         ITEM_ELEMENT_INDEX_KEY: 39,
-        ITEM_ID_KEY: 1039,
+        ITEM_ID_KEY: 10039,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "MICROCHIP 2": {
         ITEM_ELEMENT_INDEX_KEY: 40,
-        ITEM_ID_KEY: 1040,
+        ITEM_ID_KEY: 10040,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
     "MICROCHIP 3": {
         ITEM_ELEMENT_INDEX_KEY: 41,
-        ITEM_ID_KEY: 1041,
+        ITEM_ID_KEY: 10041,
         ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression,
     },
 } | sanctum_keys
