@@ -40,12 +40,12 @@ trophies = {
     "Full House Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 0),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: state.count_from_list([x for x in room_layout_lists[INNER_ROOM_KEY] if x not in core_rooms], world.player) >= 43
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.count_from_list([x for x in room_layout_lists[INNER_ROOM_KEY] if x not in core_rooms], world.player) >= 43
     },
     "Trophy of Invention": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 0),
         LOCATION_ROOM_KEY: "Workshop",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in [
                 "Burning Glass",
                 "Detector Shovel",
                 "Dowsing Rod",
@@ -60,12 +60,12 @@ trophies = {
     "Trophy of Drafting": {
         LOCATION_ID_KEY: get_room_location_id("Mail Room", 0),
         LOCATION_ROOM_KEY: "Mail Room",
-        LOCATION_RULE: lambda state, world: len([x for x in rooms if rooms[x][ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D and not rooms[x][OUTER_ROOM_KEY] and x not in core_rooms and state.can_reach_region(x, world.player)]) >= 20,
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: len([x for x in rooms if rooms[x][ROOM_LAYOUT_TYPE_KEY] == ROOM_LAYOUT_TYPE_D and not rooms[x][OUTER_ROOM_KEY] and x not in core_rooms and state.can_reach_region(x, world.player)]) >= 20,
     },
     "Trophy of Wealth": {
         LOCATION_ID_KEY: get_room_location_id("Showroom", 0),
         LOCATION_ROOM_KEY: "Showroom",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in showroom_items),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in showroom_items),
     },
     "Inheritance Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Room 46", 0),
@@ -86,12 +86,12 @@ trophies = {
     "Explorer's Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 1),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: state.has_all([x for x in rooms if x not in core_rooms and (x not in classrooms or x == "Classroom 1")], world.player)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.has_all([x for x in rooms if x not in core_rooms and (x not in classrooms or x == "Classroom 1")], world.player) # Only count Classroom 1
     },
     "Trophy of Sigils": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 2),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: all(state.can_reach_region(sanctum, world.player) for sanctum in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(state.can_reach_region(sanctum, world.player) for sanctum in [
                 "Orinda Aries Sanctum",
                 "Fenn Aries Sanctum",
                 "Arch Aries Sanctum",
@@ -106,7 +106,7 @@ trophies = {
     "Diploma Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 3),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: all(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(state.can_reach_region(region, world.player) for region in [
                 "Schoolhouse",
                 "Classroom 1",
                 "Classroom 2",
@@ -141,7 +141,7 @@ trophies = {
     # "Trophy of Trophies": {
     #     LOCATION_ID_KEY: get_room_location_id("Trophy Room") + 0,
     #     LOCATION_ROOM_KEY: "Trophy Room",
-    #     LOCATION_REQUIREMENTS: lambda state, world: all(state.can_reach_location(trophy, world.player) for trophy in [
+    #     LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(state.can_reach_location(trophy, world.player) for trophy in [
     #             "Full House Trophy",
     #             "Trophy of Invention",
     #             "Trophy of Drafting",
@@ -170,7 +170,7 @@ safes_and_small_gates = {
     "Drafting Studio Safe": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 0),
         LOCATION_ROOM_KEY: "Drafting Studio",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("MAGNIFYING GLASS", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("MAGNIFYING GLASS", state, world)
     },
     "Drawing Room Safe": {
         LOCATION_ID_KEY: get_room_location_id("Drawing Room", 0),
@@ -187,7 +187,7 @@ safes_and_small_gates = {
     "Underpass Gate": {
         LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
         LOCATION_ROOM_KEY: "The Underpass",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Boiler Room", world.player)
     },
     "Shelter Safe": {
         LOCATION_ID_KEY: get_room_location_id("Shelter", 0),
@@ -242,12 +242,7 @@ mora_jia_boxes = {
     "Throne of the Blue Prince Mora Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Throne Room", 0),
         LOCATION_ROOM_KEY: "Throne Room",
-        LOCATION_RULE: lambda state, world: state.has("Ascend The Throne", world.player) and
-        all(can_reach_item_location(item, state, world) for item in [
-            "CROWN",
-            "ROYAL SCEPTER",
-            "CURSED EFFIGY",
-        ])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.has("Ascend The Throne", world.player)
     },
     "Arch Aries Sanctum Mora Jia Box": {
         LOCATION_ID_KEY: get_room_location_id("Arch Aries Sanctum", 0),
@@ -341,7 +336,7 @@ found_floorplans = {
     "Treasure Trove Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
         LOCATION_ROOM_KEY: "The Underpass",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Boiler Room", world.player),
         NONSANITY_LOCATION_KEY: "Treasure Trove"
     },
     "Throne Room Floorplan": {
@@ -358,13 +353,13 @@ found_floorplans = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 1),
         LOCATION_ROOM_KEY: "Campsite",
         NONSANITY_LOCATION_KEY: "Conservatory",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world),
     },
     "Lost And Found Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Basement", 0),
         LOCATION_ROOM_KEY: "Basement",
         NONSANITY_LOCATION_KEY: "Lost And Found",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world),
     },
     "Closed Exhibit Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Study", 1),
@@ -395,12 +390,12 @@ gift_shop_items = {
     "Gift Shop - Blue Tents": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop", 4),
         LOCATION_ROOM_KEY: "Gift Shop",
-        LOCATION_RULE: lambda state, world: len([state.can_reach_location(loc, world.player) for loc in trophies.keys()]) >= 8
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: len([state.can_reach_location(loc, world.player) for loc in trophies.keys()]) >= 8
     },
     "Gift Shop - Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop", 5),
         LOCATION_ROOM_KEY: "Gift Shop",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in ["Library", "Shrine"]),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in ["Library", "Shrine"]),
     }
 }
 
@@ -451,7 +446,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 2), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "BATTERY PACK",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Attic",
             "Archives",
             "Courtyard",
@@ -465,22 +460,30 @@ standard_item_pickup = {
             "Mechanarium",
             "Toolshed",
             "Hovel",
+        ]),
+
+        LOCATION_RULE_SIMPLE_RARE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Spare Room",
             "Garage",
             "Utility Closet",
             "Kitchen",
-        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
+        ]),
+
+        LOCATION_RULE_COMPLEX: lambda state, world: (state.can_reach_region("Darkroom", world.player) 
+          and (state.can_reach_region("Utility Closet", world.player) 
+            or state.can_reach_region("Shelter", world.player) 
+                or can_reach_item_location("KNIGHTS SHIELD", state, world)))
+        or (state.can_reach_region("Garage", world.player) and can_reach_item_location("CAR KEYS", state, world)),
+
+        LOCATION_RULE_EXTREME: lambda state, world: (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
         or (state.can_reach_region("Trading Post", world.player) and any(can_reach_item_location(item, state, world) for item in get_trading_post_offers("BATTERY PACK")))
-        or (state.can_reach_region("Darkroom", world.player) 
-          and (state.can_reach_region("Utility Closet", world.player) or state.can_reach_region("Shelter", world.player) 
-               or can_reach_item_location("KNIGHTS SHIELD", state, world)))
         # Also spawns in Spare Patio, but we aren't adding upgraded rooms seperately atm.
     },
     "BROKEN LEVER First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 3), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "BROKEN LEVER",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Aquarium",
             "Attic",
             "Cloister",
@@ -497,23 +500,28 @@ standard_item_pickup = {
             "Workshop",
             "Secret Garden",
             "Conservatory",
+        ]),
+
+        LOCATION_RULE_SIMPLE_RARE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Spare Room",
             "Billiard Room",
             "Garage",
             "Utility Closet",
             "Kitchen",
-        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
-        or can_reach_item_location("SHOVEL", state, world)
-        or (state.can_reach_region("Darkroom", world.player) 
+        ]) or can_reach_item_location("SHOVEL", state, world),
+
+        LOCATION_RULE_COMPLEX: lambda state, world: state.can_reach_region("Darkroom", world.player) 
           and (state.can_reach_region("Utility Closet", world.player) or state.can_reach_region("Shelter", world.player) 
-               or can_reach_item_location("KNIGHTS SHIELD", state, world)))
+               or can_reach_item_location("KNIGHTS SHIELD", state, world)),
+
+        LOCATION_RULE_EXTREME: lambda state, world: (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
         # Also spawns in Spare Greenroom, but we aren't adding upgraded rooms seperately atm.
     },
     "COIN PURSE First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 4), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "COIN PURSE",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
             "Walk-In Closet",
             "Parlor",
@@ -521,20 +529,26 @@ standard_item_pickup = {
             "Workshop",
             "Dining Room",
             "Bedroom",
+            "Mail Room", # Packages
+        ]),
+
+        LOCATION_RULE_SIMPLE_RARE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Gallery",
             "Ballroom",
             "Drawing Room",
-            "Mail Room",
-        ]) or (state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player))
-        or (state.can_reach_region("Lavatory", world.player) and 
-            (state.can_reach_region("Shelter", world.player) or can_reach_item_location("KNIGHTS SHIELD", state, world) or can_reach_item_location("Dowsing Rod", state, world)))
+        ]),
+
+        LOCATION_RULE_COMPLEX: lambda state, world: state.can_reach_region("Lavatory", world.player) and 
+            (state.can_reach_region("Shelter", world.player) or can_reach_item_location("KNIGHTS SHIELD", state, world) or can_reach_item_location("Dowsing Rod", state, world)),
+
+        LOCATION_RULE_EXTREME: lambda state, world: state.has("Satellite Raised", world.player) and state.can_reach_region("Laboratory", world.player) 
         # Also spawns in Her Ladyship's Spare Room and Spare Master Bedroom, but we aren't adding upgraded rooms seperately atm.
     },
     "COMPASS First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 5), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "COMPASS",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Aquarium",
             "Attic",
             "Cloister",
@@ -555,7 +569,7 @@ standard_item_pickup = {
     "COUPON BOOK First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 6), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Attic",
             "Conference Room",
             "Dining Room",
@@ -574,7 +588,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 7), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "GEAR WRENCH",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Toolshed",
             "Lost And Found",
             "Observatory", # Spiral of Stars
@@ -584,7 +598,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 8), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "HALL PASS",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Classroom 1",
             "Classroom 2",
             "Classroom 3",
@@ -603,7 +617,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 9), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "LOCK PICK KIT",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Archives",
             "Attic",
             "Rumpus Room",
@@ -627,7 +641,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 10), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "LUCKY RABBIT'S FOOT",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
             "Walk-In Closet",
             "Rumpus Room",
@@ -648,7 +662,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 11), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "MAGNIFYING GLASS",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Archives",
             "Attic",
             "Boudoir",
@@ -686,7 +700,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 12), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "METAL DETECTOR",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Archives",
             "Attic",
             "Closet",
@@ -715,7 +729,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 14), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "RUNNING SHOES",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
             "Gymnasium",
             "Locker Room",
@@ -736,7 +750,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 15), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SALT SHAKER",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Rumpus Room",
             "Walk-In Closet",
             "Billiard Room",
@@ -753,7 +767,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 16), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SHOVEL",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Aquarium",
             "Attic",
             "Cloister",
@@ -789,7 +803,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 17), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SLEDGE HAMMER",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Attic",
             "Closet",
             "Courtyard",
@@ -817,7 +831,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 18), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SLEEPING MASK",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Bedroom",
             "Boudoir",
             "Closet",
@@ -834,7 +848,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 19), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "STOPWATCH",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Clock Tower",
             "Lost And Found",
         ]) or can_reach_item_location("JACK HAMMER", state, world)
@@ -843,7 +857,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 20), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "TELESCOPE",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Her Ladyship's Chambers",
             "Walk-In Closet",
             "Observatory", # Spiral of Stars
@@ -855,7 +869,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 21), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "TREASURE MAP",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Attic",
             "Drafting Studio",
             "Library",
@@ -878,7 +892,7 @@ standard_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 22), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "WATERING CAN",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Greenhouse",
             "Toolshed",
             "Hovel",
@@ -894,7 +908,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 30), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "BASEMENT KEY",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Antechamber",
             "Observatory", # Spiral of Stars
         ]),
@@ -903,7 +917,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 31), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "CAR KEYS",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Bedroom",
             "Billiard Room",
             "Dining Room",
@@ -931,7 +945,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 32), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "KEY 8",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Gallery",
             "Lost And Found", # Day 365+
         ]),
@@ -940,7 +954,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 33), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "KEYCARD",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Archives",
             "Closet",
             "Conference Room",
@@ -968,7 +982,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 34), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "PRISM KEY_0",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Music Room",
             "Lost And Found",
             "Locksmith"
@@ -979,7 +993,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 35), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SECRET GARDEN KEY",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Attic",
             "Music Room",
             "Lost And Found",
@@ -993,7 +1007,7 @@ special_key_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 36), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         LOCATION_ITEM_KEY: "SILVER KEY",
-        LOCATION_RULE: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(state.can_reach_region(region, world.player) for region in [
             "Closet",
             "Music Room",
             "Her Ladyship's Chambers",
@@ -1030,37 +1044,37 @@ showroom_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 40), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "CHRONOGRAPH",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
     "EMERALD BRACELET First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 41), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "EMERALD BRACELET",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
     "MASTER KEY First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 42), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "MASTER KEY",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
     "MOON PENDANT First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 43), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "MOON PENDANT",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
     "ORNATE COMPASS First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 44), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "ORNATE COMPASS",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
     "SILVER SPOON First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 45), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Campsite",
         # LOCATION_ITEM_KEY: "SILVER SPOON",
-        LOCATION_RULE: showroom_item_rule
+        LOCATION_RULE_SIMPLE_COMMON: showroom_item_rule
     },
 }
 
@@ -1074,7 +1088,7 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
         LOCATION_ROOM_KEY: "Shrine",
         LOCATION_ITEM_KEY: "CURSED EFFIGY",
-        LOCATION_RULE: lambda state, world: (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)) 
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)) 
         and state.can_reach_region("Gift Shop", world.player)
     },
     "DIARY KEY First Pickup": {
@@ -1091,19 +1105,19 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Dining Room", 0),
         LOCATION_ROOM_KEY: "Dining Room",
         LOCATION_ITEM_KEY: "LUNCH BOX",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Gift Shop", world.player)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Gift Shop", world.player)
     },
     "MICROCHIP 1 First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("West Path", 0),
         LOCATION_ROOM_KEY: "West Path",
         LOCATION_ITEM_KEY: "MICROCHIP 1",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world)
     },
     "MICROCHIP 2 First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 10),
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "MICROCHIP 2",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "MICROCHIP 3 First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Blackbridge Grotto", 0),
@@ -1119,7 +1133,7 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Treasure Trove", 0),
         LOCATION_ROOM_KEY: "Treasure Trove",
         LOCATION_ITEM_KEY: "ROYAL SCEPTER",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and can_reach_item_location("KEY of Aries", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Shrine", world.player) and can_reach_item_location("KEY of Aries", state, world)
     }
 }
 
@@ -1130,49 +1144,49 @@ workshop_contraptions = {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 1),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Burning Glass",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["MAGNIFYING GLASS", "METAL DETECTOR"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["MAGNIFYING GLASS", "METAL DETECTOR"])
     },
     "Detector Shovel First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 2),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Detector Shovel",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "METAL DETECTOR"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "METAL DETECTOR"])
     },
     "Dowsing Rod First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 3),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Dowsing Rod",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "COMPASS"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "COMPASS"])
     },
     "Power Hammer First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 4),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Power Hammer",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SLEDGE HAMMER", "BROKEN LEVER", "BATTERY PACK"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SLEDGE HAMMER", "BROKEN LEVER", "BATTERY PACK"])
     },
     "Electromagnet First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 5),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Electromagnet",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["COMPASS", "BATTERY PACK"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["COMPASS", "BATTERY PACK"])
     },
     "Lucky Purse First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 6),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Lucky Purse",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["COIN PURSE", "LUCKY RABBIT'S FOOT"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["COIN PURSE", "LUCKY RABBIT'S FOOT"])
     },
     "Jack Hammer First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 7),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Jack Hammer",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "BATTERY PACK", "BROKEN LEVER"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["SHOVEL", "BATTERY PACK", "BROKEN LEVER"])
     },
     "Pick Sound Amplifier First Craft": {
         LOCATION_ID_KEY: get_room_location_id("Workshop", 8),
         LOCATION_ROOM_KEY: "Workshop",
         LOCATION_ITEM_KEY: "Pick Sound Amplifier",
-        LOCATION_RULE: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["LOCK PICK KIT", "METAL DETECTOR"])
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: all(can_reach_item_location(item, state, world) for item in ["LOCK PICK KIT", "METAL DETECTOR"])
     },
 }
 
@@ -1196,7 +1210,7 @@ upgrade_disks = {
     "Upgrade Disk - Garage": {
         LOCATION_ID_KEY: get_room_location_id("Garage", 0),
         LOCATION_ROOM_KEY: "Garage",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("CAR KEYS", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("CAR KEYS", state, world)
     },
     "Upgrade Disk - Great Hall": {
         LOCATION_ID_KEY: get_room_location_id("Great Hall", 0),
@@ -1205,17 +1219,17 @@ upgrade_disks = {
     "Upgrade Disk - Vault": {
         LOCATION_ID_KEY: get_room_location_id("Vault", 0),
         LOCATION_ROOM_KEY: "Vault",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("VAULT KEY 304", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("VAULT KEY 304", state, world)
     },
     "Upgrade Disk - Trading Post Dynamite": {
         LOCATION_ID_KEY: get_room_location_id("Trading Post", 0),
         LOCATION_ROOM_KEY: "Trading Post",
-        LOCATION_RULE: lambda state, world: any(can_reach_item_location(item, state, world) for item in ["Burning Glass", "TORCH"]),
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(can_reach_item_location(item, state, world) for item in ["Burning Glass", "TORCH"]),
     },
     "Upgrade Disk - Freezer": {
         LOCATION_ID_KEY: get_room_location_id("Freezer", 0),
         LOCATION_ROOM_KEY: "Freezer",
-        LOCATION_RULE: lambda state, world: any(can_reach_item_location(item, state, world) for item in [
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: any(can_reach_item_location(item, state, world) for item in [
             "Burning Glass",
             "TORCH",
             "Power Hammer",
@@ -1244,7 +1258,7 @@ upgrade_disks = {
     "Upgrade Disk - Archives": {
         LOCATION_ID_KEY: get_room_location_id("Archives", 0),
         LOCATION_ROOM_KEY: "Archives",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("CABINET KEY 1", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("CABINET KEY 1", state, world)
     },
     "Upgrade Disk - Trading Post Trade": {
         LOCATION_ID_KEY: get_room_location_id("Trading Post", 1),
@@ -1257,7 +1271,7 @@ vault_keys = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 4), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "VAULT KEY 149",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Attic", 
             "Rumpus Room", 
@@ -1271,7 +1285,7 @@ vault_keys = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 5), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "VAULT KEY 233",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world)
         or any(state.can_reach_region(x, world.player) for x in [
             "Office",
             "Sauna",
@@ -1287,7 +1301,7 @@ vault_keys = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 6), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "VAULT KEY 304",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Conference Room",
             "Her Ladyship's Chambers",
@@ -1301,7 +1315,7 @@ vault_keys = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 7), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "VAULT KEY 370",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or state.can_reach_region("Lost And Found", world.player)
     }
 }
@@ -1316,7 +1330,7 @@ sanctum_keys = {
         LOCATION_ID_KEY: get_room_location_id("Vault", 1),
         LOCATION_ROOM_KEY: "Vault",
         LOCATION_ITEM_KEY: "SANCTUM KEY VAULT",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("VAULT KEY 370", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("VAULT KEY 370", state, world)
     },
     "Sanctum Key - Clock Tower": {
         LOCATION_ID_KEY: get_room_location_id("Clock Tower", 0),
@@ -1355,13 +1369,13 @@ file_cabinet_keys = {
         LOCATION_ID_KEY: get_room_location_id("Patio", 0),
         LOCATION_ROOM_KEY: "Patio",
         LOCATION_ITEM_KEY: "CABINET KEY 1",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world)
     },
     "File Cabinet Key - Laundry Room": {
         LOCATION_ID_KEY: get_room_location_id("Laundry Room", 0),
         LOCATION_ROOM_KEY: "Laundry Room",
         LOCATION_ITEM_KEY: "CABINET KEY 2",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SHOVEL", state, world)
     },
     "File Cabinet Key - Tunnel Area Past Crates": {
         LOCATION_ID_KEY: get_room_location_id("Tunnel Area Past Crates", 1),
@@ -1376,12 +1390,12 @@ misc_locations = {
     "Entrance Hall East Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 8),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Entrance Hall West Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 9),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
@@ -1407,7 +1421,7 @@ misc_locations = {
     "Scorch Sundial": {
         LOCATION_ID_KEY: get_room_location_id("Apple Orchard", 1),
         LOCATION_ROOM_KEY: "Apple Orchard",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("Burning Glass", state, world) or can_reach_item_location("TORCH", state, world)
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: can_reach_item_location("Burning Glass", state, world) or can_reach_item_location("TORCH", state, world)
     },
     "VAC Controls": {
         LOCATION_ID_KEY: get_room_location_id("Utility Closet", 0),
@@ -1421,7 +1435,7 @@ misc_locations = {
     "Allowance Token - Outer Entrance Hall Vase": {
         LOCATION_ID_KEY: get_room_location_id("Outer Room", 0),
         LOCATION_ROOM_KEY: "Outer Room",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world))
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: state.can_reach_region("Shrine", world.player) and (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world))
     },
     # Ignoring deposit box allowance tokens for now, since they are missable (don't respawn if not picked up)
 }

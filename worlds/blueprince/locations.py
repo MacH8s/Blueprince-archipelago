@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import CollectionState, ItemClassification, Location
 
-from .options import GoalType
+from .options import GoalType, ItemLogicMode
 
 from . import items
 from .constants import *
@@ -115,12 +115,21 @@ def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, sta
         if not state.has(item_name, world.player):
             return False
     
-    if LOCATION_RULE not in location_data:
+    if LOCATION_RULE_SIMPLE_COMMON not in location_data and LOCATION_RULE_SIMPLE_RARE not in location_data and LOCATION_RULE_COMPLEX not in location_data and LOCATION_RULE_EXTREME not in location_data:
         return True
 
-    rule = location_data[LOCATION_RULE]
+    rules = []
 
-    return rule(state, world)
+    if LOCATION_RULE_SIMPLE_COMMON in location_data:
+        rules.append(location_data[LOCATION_RULE_SIMPLE_COMMON])
+    if LOCATION_RULE_SIMPLE_RARE in location_data and world.options.item_logic_mode.value is (ItemLogicMode.option_rare or ItemLogicMode.option_rare_complex or ItemLogicMode.option_extreme):
+        rules.append(location_data[LOCATION_RULE_SIMPLE_RARE])
+    if LOCATION_RULE_COMPLEX in location_data and world.options.item_logic_mode.value is (ItemLogicMode.option_complex or ItemLogicMode.option_rare_complex or ItemLogicMode.option_extreme):
+        rules.append(location_data[LOCATION_RULE_COMPLEX])
+    if LOCATION_RULE_EXTREME in location_data and world.options.item_logic_mode.value is ItemLogicMode.option_extreme:
+        rules.append(location_data[LOCATION_RULE_EXTREME])
+
+    return any(rule(state, world) for rule in rules)
 
 def create_events(world: BluePrinceWorld) -> None:
 
