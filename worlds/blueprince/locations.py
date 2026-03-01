@@ -9,19 +9,18 @@ from .options import GoalType
 from . import items
 from .constants import *
 
-from .data_rooms import rooms, blue_rooms
-from .data_items import showroom_items, armory_items, other_items
+from .data_rooms import rooms, blue_rooms, core_rooms
+from .data_items import armory_items
+from .data_other_locations import can_reach_item_location, locations
+from .items import BluePrinceItem
 
 if TYPE_CHECKING:
     from .world import BluePrinceWorld
 
-ROOM_MULTIPLIER = 100_000
-
 LOCATION_NAME_TO_ID = (
     {
-        # TODO-1 add locations for other stuff later.
-        # "Entrance Hall East Vase": rooms["Entrance Hall"][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + 0,
-        # "Entrance Hall West Vase": rooms["Entrance Hall"][ROOM_ITEM_ID_KEY] * ROOM_MULTIPLIER + 1,
+        k: v[LOCATION_ID_KEY]
+        for k, v in locations.items()
     }
     | {
         # Create First Entering locations for each room.
@@ -36,9 +35,9 @@ LOCATION_NAME_TO_ID = (
         if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0
     }
     | {
-        # Add First Pickup as locations for the standard "tools".
+        # Add First Pickup as locations for armory items.
         f"{k} First Pickup": v[ITEM_ID_KEY] * ROOM_MULTIPLIER
-        for k, v in (showroom_items | armory_items | other_items).items()
+        for k, v in armory_items.items()
     }
 )
 
@@ -56,32 +55,72 @@ def create_all_locations(world: BluePrinceWorld) -> None:
     create_events(world)
 
 
+
 def create_regular_locations(world: BluePrinceWorld) -> None:
 
-    campsite = world.get_region("Campsite")  # For Sanctum Solves Victory.
-
-    # Iterate through the campsite and add locations for all items.
-    for k, v in (showroom_items | armory_items | other_items).items():
-        # TODO-2 this could be a comprehension, but this works for now.
+    armory = world.get_region("The Armory")
+    
+    # Ignoring chance to get Knight's Shield by digging with Jack Hammer for now.
+    for k, v in armory_items.items():
         location_key = f"{k} First Pickup"
-        locations = get_location_names_with_ids([location_key])
-        campsite.add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([location_key])
+        armory.add_locations(locs, BluePrinceLocation)
 
     for room_key, v in rooms.items():
         room = world.get_region(room_key)
 
         # Add fist room entrance
         location_key = f"{room_key} First Entering"
-        locations = get_location_names_with_ids([location_key])
-        room.add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([location_key])
+        room.add_locations(locs, BluePrinceLocation)
         # Add Nth locked trunk open
 
-        for idx in range(1, world.options.locked_trunks + 1):
-            if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0:
-                # TODO-2 this could be a comprehension, but this works for now.
-                location_key = f"{room_key} Locked Trunk {idx}"
-                locations = get_location_names_with_ids([location_key])
-                room.add_locations(locations, BluePrinceLocation)
+        locs = get_location_names_with_ids([f"{room_key} Locked Trunk {idx}" for idx in range(1, world.options.locked_trunks + 1) if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0])
+        room.add_locations(locs, BluePrinceLocation)
+
+        if room_key == "Entrance Hall":
+            # TODO: switch to using set_rule once 0.6.7 is released.
+            for idx in range(1, world.options.locked_trunks + 1):
+                world.get_location(f"Entrance Hall Locked Trunk {idx}").access_rule = lambda state: state.can_reach_region("Observatory", world.player) or state.can_reach_region("Laboratory", world.player)
+            
+
+    for k, v in locations.items():
+        if NONSANITY_LOCATION_KEY in v and world.options.room_draft_sanity == False:
+            if v[NONSANITY_LOCATION_KEY] != STARTING_INVENTORY:
+                # Place room items at their in-game locations when room draft sanity is off.
+                reg = world.get_region(v[LOCATION_ROOM_KEY])
+                loc = BluePrinceLocation(world.player, k, LOCATION_NAME_TO_ID[k], reg)
+                loc.place_locked_item(BluePrinceItem(v[NONSANITY_LOCATION_KEY], ItemClassification.progression_skip_balancing, None, world.player))
+
+                reg.locations.append(loc)
+
+                # TODO: switch to using set_rule once 0.6.7 is released.
+                world.get_location(k).access_rule = lambda state, key=k: can_access_location_with_rule(key, world, state)
+                # world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
+                continue
+        
+        location_key = k
+        locs = get_location_names_with_ids([location_key])
+        world.get_region(v[LOCATION_ROOM_KEY]).add_locations(locs, BluePrinceLocation)
+
+        # TODO: switch to using set_rule once 0.6.7 is released.
+        world.get_location(location_key).access_rule = lambda state, key=location_key: can_access_location_with_rule(key, world, state)
+        # world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
+    
+def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, state: CollectionState) -> bool:
+    location_data = locations[location_key]
+    
+    if LOCATION_ITEM_KEY in location_data:
+        item_name = location_data[LOCATION_ITEM_KEY]
+        if not state.has(item_name, world.player):
+            return False
+    
+    if LOCATION_RULE not in location_data:
+        return True
+
+    rule = location_data[LOCATION_RULE]
+
+    return rule(state, world)
 
 def create_events(world: BluePrinceWorld) -> None:
 
@@ -138,26 +177,30 @@ def create_events(world: BluePrinceWorld) -> None:
             item_type=items.BluePrinceItem,
         )
 
+    throne_room.add_event(
+        "Ascended The Throne",
+        "Ascend The Throne",
+        lambda state: can_reach_item_location("CROWN", state, world) and
+        can_reach_item_location("ROYAL SCEPTER", state, world) and
+        can_reach_item_location("CURSED EFFIGY", state, world),
+        location_type=BluePrinceLocation,
+        item_type=items.BluePrinceItem,
+    )
+
     # Set Victory as ascending to the throne
     if world.options.goal_type.value == GoalType.option_ascend:
         throne_room.add_event(
-            "Ascended The Throne",
+            "Ascend The Throne Victory",
             "Victory",
-            lambda state: state.has("CROWN", world.player) and
-            state.has("ROYAL SCEPTER", world.player) and
-            state.has("CURSED EFFIGY", world.player) and
-            state.has_from_list(blue_rooms.keys(), world.player, 8),
+            lambda state: state.has("Ascend The Throne", world.player),
             location_type=BluePrinceLocation,
             item_type=items.BluePrinceItem,
         )
 
     throne_room.add_event(
-        "Ascended The Throne",
+        "Unseal Blue Doors",
         "Blue Door Access",
-        lambda state: state.has("CROWN", world.player) and
-        state.has("ROYAL SCEPTER", world.player) and
-        state.has("CURSED EFFIGY", world.player) and
-        state.has_from_list(blue_rooms.keys(), world.player, 8),
+        lambda state: len([x for x in blue_rooms if x not in core_rooms and state.can_reach_region(x, world.player)]) >= 8,
         location_type=BluePrinceLocation,
         item_type=items.BluePrinceItem,
     )
@@ -212,6 +255,15 @@ def create_events(world: BluePrinceWorld) -> None:
         item_type=items.BluePrinceItem,
     )
 
+    world.get_region("Apple Orchard").add_event(
+        "Raise Satellite",
+        "Satellite Raised",
+        lambda state: all(can_reach_item_location(x, state, world) for x in ["MICROCHIP 1", "MICROCHIP 2", "MICROCHIP 3"]) 
+        and state.can_reach_location("Scorch Sundial", world.player),
+        location_type=BluePrinceLocation,
+        item_type=items.BluePrinceItem,
+    )
+
     # Chess Piece Access Rules
     for k, v in rooms.items():
         if v[ROOM_CHESS_PIECE_KEY] == CHESS_PIECE_NONE:
@@ -223,3 +275,4 @@ def create_events(world: BluePrinceWorld) -> None:
             item_type=items.BluePrinceItem,
         )
         
+    

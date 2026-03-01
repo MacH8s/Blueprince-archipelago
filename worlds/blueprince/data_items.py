@@ -232,12 +232,12 @@ showroom_items = {
     "CHRONOGRAPH": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 2001,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "EMERALD BRACELET": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 2002,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "MASTER KEY": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
@@ -247,17 +247,17 @@ showroom_items = {
     "MOON PENDANT": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 2004,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "ORNATE COMPASS": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 2005,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "SILVER SPOON": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 2006,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
 }
 armory_items = {
@@ -269,7 +269,7 @@ armory_items = {
     "THE AXE": {
         ITEM_ELEMENT_INDEX_KEY: 36,
         ITEM_ID_KEY: 1036,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "TORCH": {
         ITEM_ELEMENT_INDEX_KEY: 37,
@@ -279,7 +279,7 @@ armory_items = {
     "KNIGHTS SHIELD": {
         ITEM_ELEMENT_INDEX_KEY: 38,
         ITEM_ID_KEY: 1038,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
 }
 
@@ -322,37 +322,37 @@ other_items = {
     "RUNNING SHOES": {
         ITEM_ELEMENT_INDEX_KEY: 15,
         ITEM_ID_KEY: 1015,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "SALT SHAKER": {
         ITEM_ELEMENT_INDEX_KEY: 16,
         ITEM_ID_KEY: 1016,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "SLEEPING MASK": {
         ITEM_ELEMENT_INDEX_KEY: 21,
         ITEM_ID_KEY: 1021,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "COIN PURSE": {
         ITEM_ELEMENT_INDEX_KEY: 4,
         ITEM_ID_KEY: 1004,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "COUPON BOOK": {
         ITEM_ELEMENT_INDEX_KEY: 6,
         ITEM_ID_KEY: 1006,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "LOCK PICK KIT": {
         ITEM_ELEMENT_INDEX_KEY: 11,
         ITEM_ID_KEY: 1011,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "LUCKY RABBIT'S FOOT": {
         ITEM_ELEMENT_INDEX_KEY: 12,
         ITEM_ID_KEY: 1012,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "TREASURE MAP": {
         ITEM_ELEMENT_INDEX_KEY: 26,
@@ -362,12 +362,12 @@ other_items = {
     "STOPWATCH": {
         ITEM_ELEMENT_INDEX_KEY: 29,
         ITEM_ID_KEY: 1029,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "REPELLENT": {
         ITEM_ELEMENT_INDEX_KEY: 30,
         ITEM_ID_KEY: 1030,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "WATERING CAN": {
         ITEM_ELEMENT_INDEX_KEY: 31,
@@ -382,7 +382,7 @@ other_items = {
     "LUNCH BOX": {
         ITEM_ELEMENT_INDEX_KEY: 43,
         ITEM_ID_KEY: 1043,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "CURSED EFFIGY": {
         ITEM_ELEMENT_INDEX_KEY: 44,
@@ -407,12 +407,12 @@ other_items = {
     "GEAR WRENCH": {
         ITEM_ELEMENT_INDEX_KEY: 33,
         ITEM_ID_KEY: 1033,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "COMPASS": {
         ITEM_ELEMENT_INDEX_KEY: 5,
         ITEM_ID_KEY: 1005,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
 }
 
@@ -430,12 +430,12 @@ workshop_items = {
     "Dowsing Rod": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 3003,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "Electromagnet": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 3004,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "Jack Hammer": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
@@ -445,12 +445,12 @@ workshop_items = {
     "Lucky Purse": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 3006,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized,
     },
     "Pick Sound Amplifier": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
         ITEM_ID_KEY: 3007,
-        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.useful,
+        ITEM_ITEM_CLASSIFICATION_KEY: ItemClassification.progression_deprioritized_skip_balancing,
     },
     "Power Hammer": {
         ITEM_ELEMENT_INDEX_KEY: NO_ITEM_ELEMENT_INDEX,
@@ -477,6 +477,139 @@ upgrade_items = {
     },
 }
 
+# 
+# Items to add:
+# 
+# Gift Shop Items
+# Bookshop Items
+# 
+# Orchard Gate?
 
 all_items_excluding_upgrade_items = upgrade_disks | keys | showroom_items | armory_items | workshop_items | other_items
 all_items = all_items_excluding_upgrade_items | upgrade_items
+
+#############################
+# TRADING POST TIER LOOKUPS #
+#############################
+
+TRADING_POST_TIER1 = {
+    TRADING_POST_GIVE: [
+        "BATTERY PACK",
+        "MAGNIFYING GLASS",
+        "SALT SHAKER",
+        "SLEEPING MASK",
+        "BROKEN LEVER",
+    ],
+    TRADING_POST_RECEIVE: [
+        "BATTERY PACK",
+        "MAGNIFYING GLASS",
+        "SALT SHAKER",
+        "SLEEPING MASK",
+        "BROKEN LEVER",
+    ],
+}
+TRADING_POST_TIER2 = {
+    TRADING_POST_GIVE: [
+        "CAR KEYS",
+        "COIN PURSE",
+        "COMPASS",
+        "COUPON BOOK",
+        "SHOVEL",
+        "SLEDGE HAMMER",
+    ],
+    TRADING_POST_RECEIVE: [
+        "CAR KEYS",
+        "COIN PURSE",
+        "COMPASS",
+        "COUPON BOOK",
+        "SHOVEL",
+        "SLEDGE HAMMER",
+        "MICROCHIP 1",
+        "MICROCHIP 2",
+        "MICROCHIP 3",
+        "TREASURE MAP",
+        "Wind-up Key",
+    ],
+}
+TRADING_POST_TIER3 = {
+    TRADING_POST_GIVE: [
+        "KEYCARD",
+        "LOCK PICK KIT",
+        "LUCKY RABBIT'S FOOT",
+        "METAL DETECTOR",
+        "RUNNING SHOES",
+        "SILVER KEY",
+        "VAULT KEY 149",
+        "VAULT KEY 233",
+        "VAULT KEY 304",
+        "VAULT KEY 370",
+    ],
+    TRADING_POST_RECEIVE: [
+        "KEYCARD",
+        "LOCK PICK KIT",
+        "LUCKY RABBIT'S FOOT",
+        "METAL DETECTOR",
+        "RUNNING SHOES",
+        "SILVER KEY",
+        "VAULT KEY 149",
+        "VAULT KEY 233",
+        "VAULT KEY 304",
+        "VAULT KEY 370",
+        "THE AXE",
+        "KNIGHTS SHIELD",
+        "MORNING STAR",
+        "TORCH",
+        "MOON PENDANT",
+        "SILVER SPOON",
+    ],
+}
+TRADING_POST_TIER4 = {
+    TRADING_POST_GIVE: [
+        "GEAR WRENCH",
+        "HALL PASS",
+        "PRISM KEY_0",
+        "SECRET GARDEN KEY",
+        "TELESCOPE",
+    ],
+    TRADING_POST_RECEIVE: [
+        "GEAR WRENCH",
+        "HALL PASS",
+        "PRISM KEY_0",
+        "SECRET GARDEN KEY",
+        "TELESCOPE",
+        "Burning Glass",
+        "Detector Shovel",
+        "Dowsing Rod",
+        "Electromagnet",
+        "Jack Hammer",
+        "Lucky Purse",
+        "Pick Sound Amplifier",
+        "Power Hammer",
+        "BASEMENT KEY",
+        "DIARY KEY",
+        "KEY 8",
+        "CHRONOGRAPH",
+        "LUNCH BOX",
+        "REPELLENT",
+        "STOPWATCH",
+        "WATERING CAN",
+        "UPGRADE DISK COMMISSARY",
+        "UPGRADE DISK OFFICE",
+        "UPGRADE DISK GARAGE",
+        "UPGRADE DISK FOUNDATION",
+        "UPGRADE DISK GREAT HALL",
+        "UPGRADE DISK MORNING ROOM",
+        "UPGRADE DISK HER LADYSHIPS CHAMBER",
+        "UPGRADE DISK VAULT",
+        "UPGRADE DISK ARCHIVES",
+        "UPGRADE DISK FREEZER",
+        "UPGRADE DISK TOMB",
+        "UPGRADE DISK LOST AND FOUND",
+        "UPGRADE DISK MECHANARIUM",
+        "UPGRADE DISK ABANDONED MINE",
+        "UPGRADE DISK TRADING POST TRADE",
+        "UPGRADE DISK TRADING POST DYNAMITE"
+    ],
+}
+
+# None of the Tier 5 items can be received, so there's no point in defining it atm

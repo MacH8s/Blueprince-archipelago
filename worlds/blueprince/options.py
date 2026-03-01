@@ -13,7 +13,6 @@ from Options import (
 
 # Current "Sanity" options. Operating Under Assumption of Under Development.
 
-
 class RoomDraftSanity(Toggle):
     """
 
@@ -25,34 +24,72 @@ class RoomDraftSanity(Toggle):
 
     display_name = "Dev: Room Draft Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
-    default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+    default = True
 
+    visibility = Visibility.all
 
-class ItemSanity(Toggle):
+class StandardItemSanity(Toggle):
     """
-    Currently a Development option:
-    ItemSanity enables the ability for items to be placed into the item pool.
-    That is, the blue prince item in question can not be received in any way
-    until the item is received from the server.
-
-    IE This option would limit simon to only being able to find a sledgehammer once that ability
-    is granted by the "Sledgehammers" item being found.
+    This option enables standard item sanity checks.
+    That is, standard items can not be picked up or used until they are unlocked.
     """
 
-    display_name = "Dev: Item Sanity"
+    display_name = "Dev: Standard Item Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
+    default = True
+
+    visibility = Visibility.all
+
+class WorkshopSanity(Toggle):
+    """
+    This option enables workshop item sanity checks.
+    That is, workshop crafted items can not be crafted until they are unlocked.
+    """
+
+    display_name = "Dev: Workshop Sanity"
+
     default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
 
+    visibility = Visibility.all
+
+class UpgradeDiskSanity(Toggle):
+    """
+    This option enables upgrade disk sanity checks.
+    That is, upgrade disk items can not be picked up until they are unlocked.
+    """
+
+    display_name = "Dev: Upgrade Disk Sanity"
+
+    default = False
+
+    visibility = Visibility.all
+
+class KeySanity(Toggle):
+    """
+    This option enables key sanity checks.
+    That is, special keys can not be picked up until they are unlocked.
+    """
+
+    display_name = "Dev: Key Sanity"
+
+    default = False
+
+    visibility = Visibility.all
+
+class SpecialShopSanity(Toggle):
+    """
+    This option enables sanity checks for The Armory and Showroom.
+    That is, special shop items can not be purchased until they are unlocked.
+    """
+
+    display_name = "Dev: Special Shop Sanity"
+
+    default = False
+
+    visibility = Visibility.all
 
 # TODO-2 Crate Sanity?
 # TODO-2 Document full list of potential checks/locations posted in blue prince thread.
-
 
 class LockedTrunkCount(Range):
     """
@@ -66,6 +103,30 @@ class LockedTrunkCount(Range):
 
     default = 2
 
+class ItemLogicMode(Choice):
+    """
+    This option controls which possible item spawns are considered for an item being obtainable.
+
+    - **default:** Only common, simple spawn locations are considered.
+    - **rare:** All simple spawn locations are considered.
+    - **complex:** All common spawn locations are considered.
+    - **rare_complex:** Everything is considered except ||Spiral of Stars||, ||Advanced Experiments||, and ||Freight Mail||.
+    - **extreme:** Everything is considered.
+
+    """
+
+    display_name = "Item Logic Mode"
+
+    rich_text_doc = True
+    option_default = 0
+    option_rare = 1
+    option_complex = 2
+    option_rare_complex = 3
+    option_extreme = 4
+
+    default = 0
+
+# TODO: Aries Court and Atelier Mora Jai boxes toggles?
 
 # Filler Options.
 class FillerItemDistribution(OptionCounter):
@@ -281,9 +342,12 @@ class BluePrinceOptions(PerGameCommonOptions):
 
     # Development Options
     room_draft_sanity: RoomDraftSanity
-    item_sanity: ItemSanity
     locked_trunks: LockedTrunkCount
-    # upgrade_disk_sanity: UpgradeDiskSanity
+    standard_item_sanity: StandardItemSanity
+    workshop_sanity: WorkshopSanity
+    upgrade_disk_sanity: UpgradeDiskSanity
+    key_sanity: KeySanity
+    special_shop_sanity: SpecialShopSanity
 
     # Extra item options.
     filler_item_distribution: FillerItemDistribution
@@ -306,9 +370,12 @@ option_groups = [
         "Sanity Options",
         [
             RoomDraftSanity,
-            ItemSanity,
             LockedTrunkCount,
-            # UpgradeDiskSanity
+            StandardItemSanity,
+            WorkshopSanity,
+            UpgradeDiskSanity,
+            KeySanity,
+            SpecialShopSanity,
         ],
     ),
     OptionGroup(
@@ -329,12 +396,15 @@ option_groups = [
 # Finally, we can define some option presets if we want the player to be able to quickly choose a specific "mode".
 option_presets = {
     # Room 46 Extra Drafting is to be a "vanilla" play through to reach room 46,
-    # with no death link, with the goal set to room 64, and with no extra items or traps added to the pool.
+    # with no death link, with the goal set to room 64, and with no filler items or traps added to the pool.
     "Room 46 Extra Drafting": {
         "room_draft_sanity": True,
-        "item_sanity": True,
         "locked_trunks": 2,
-        # "upgrade_disk_sanity": True,
+        "standard_item_sanity": True,
+        "workshop_sanity": True,
+        "upgrade_disk_sanity": True,
+        "key_sanity": True,
+        "special_shop_sanity": True,
         "filler_item_distribution": {"nothing": 100},
         "trap_type_distribution": {},
         "trap_percentage": TrapPercentage.range_start,

@@ -1,3 +1,17 @@
+#####################
+# OPTIONS CONSTANTS #
+#####################
+
+ROOM_DRAFT_SANITY = "room_draft_sanity"
+STANDARD_ITEM_SANITY = "standard_item_sanity"
+WORKSHOP_SANITY = "workshop_sanity"
+UPGRADE_DISK_SANITY = "upgrade_disk_sanity"
+KEY_SANITY = "key_sanity"
+SPECIAL_SHOP_SANITY = "special_shop_sanity"
+
+SANITY_TYPE_KEY = "sanity_type"
+NONSANITY_LOCATION_KEY = "nonsanity_location_item"
+
 ######################
 # ITEM KEY CONSTANTS #
 ######################
@@ -20,12 +34,13 @@ ROOM_LAYOUT_TYPE_KEY = "room_layout"
 OUTER_ROOM_KEY = "is_outer_room"
 
 INNER_ROOM_KEY = "is_inner_room"
-LOCATION_COUNT_KEY = "location_count"
 
 
 ##################
 # ITEM CONSTANTS #
 ##################
+
+ROOM_MULTIPLIER = 100_000
 
 # One of the room layout types. Specifically, for dead-end rooms
 ROOM_LAYOUT_TYPE_D = "room_layout_type_d"
@@ -48,6 +63,7 @@ CHESS_PIECE_BISHOP = "Bishop"
 CHESS_PIECE_PAWN = "Pawn"
 CHESS_PIECE_NONE = ""
 
+STARTING_INVENTORY = "starting_inventory"
 
 ######################
 # ITEM KEY CONSTANTS #
@@ -59,7 +75,6 @@ ITEM_ELEMENT_INDEX_KEY = "item_element_index"
 ITEM_ID_KEY = "item_id"
 # Key of the item's classification in the item data table.
 ITEM_ITEM_CLASSIFICATION_KEY = "item_classification"
-
 
 ##################
 # ITEM CONSTANTS #
@@ -73,21 +88,10 @@ NO_ITEM_ELEMENT_INDEX = -1
 ##########################
 
 LOCATION_ID_KEY = "location_id"
-LOCATION_REQUIREMENTS = "requirements"
+LOCATION_RULE = "rule"
 LOCATION_ROOM_KEY = "location_room"
-
-##################################
-# LOCATION REQUIREMENT CONSTANTS #
-##################################
-
-LOCATION_REQUIREMENT_TYPE_ROOM_COUNT = "room_count"
-LOCATION_REQUIREMENT_TYPE_HAS_ALL_ROOMS = "has_all_rooms"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ALL = "has_items_all"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEMS_ANY = "has_items_any"
-LOCATION_REQUIREMENT_TYPE_HAS_ITEM_COUNTS = "has_item_counts"
-LOCATION_REQUIREMENT_TYPE_HAS_REGIONS_ACCESS = "has_regions_access"
-LOCATION_REQUIREMENT_TYPE_HAS_LOCATIONS_ACCESS = "has_locations_access"
-LOCATION_REQUIREMENT_TYPE_COUNT_LOCATIONS_ACCESS = "count_locations_access"
+LOCATION_ITEM_KEY = "location_item"
+LOCATION_SANITY_TYPE_KEY = "sanity_type"
 
 #####################
 # CONTROL CONSTANTS #
@@ -153,3 +157,10 @@ ROOM_PICK_POSITION_STANDALONE = "STANDALONE ARRAY"
 ROOM_PICK_POSITION_STANDALONE_FULL = "STANDALONE ARRAY FULL"
 ROOM_PICK_POSITION_ANTECHAMBER = "ANTECHAMBER"
 ROOM_PICK_POSITION_ROOM_8 = "ROOM 8"
+
+#################################
+# TRADING POST LOOKUP CONSTANTS #
+#################################
+
+TRADING_POST_GIVE = "GIVE"
+TRADING_POST_RECEIVE = "RECEIVE"
