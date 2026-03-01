@@ -129,6 +129,9 @@ def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, sta
     if LOCATION_RULE_EXTREME in location_data and world.options.item_logic_mode.value is ItemLogicMode.option_extreme:
         rules.append(location_data[LOCATION_RULE_EXTREME])
 
+    if not rules:
+        return True
+
     return any(rule(state, world) for rule in rules)
 
 def create_events(world: BluePrinceWorld) -> None:

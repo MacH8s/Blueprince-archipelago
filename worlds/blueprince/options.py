@@ -106,11 +106,12 @@ class LockedTrunkCount(Range):
 class ItemLogicMode(Choice):
     """
     This option controls which possible item spawns are considered for an item being obtainable.
+    Room upgrades are currently not considered at all.
 
     - **default:** Only common, simple spawn locations are considered.
     - **rare:** All simple spawn locations are considered, including ones that require high luck.
     - **complex:** All common spawn locations are considered, including ones that require multiple rooms/items. Also includes trunk contents.
-    - **rare_complex:** Everything is considered except for ||Spiral of Stars||, ||Advanced Experiments||, ||Trading Post||, and ||Freight Mail||.
+    - **rare_complex:** Everything is considered except for ||Spiral of Stars||, ||Advanced Experiments||, ||Trading Post||, ||Freight Mail||, and extra complex ||Trunk locations||.
     - **extreme:** Everything is considered.
 
     """
