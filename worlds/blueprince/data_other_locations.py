@@ -1237,7 +1237,7 @@ vault_keys = {
     "Vault Key 149": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 4), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ID_KEY: "VAULT KEY 149",
+        LOCATION_ITEM_KEY: "VAULT KEY 149",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Attic", 
