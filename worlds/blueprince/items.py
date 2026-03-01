@@ -387,42 +387,48 @@ def create_item_with_correct_classification(world: BluePrinceWorld, name: str) -
 def create_all_items(world: BluePrinceWorld) -> None:
 
     itempool: list[Item] = []
+    to_precollect: list[Item] = []
 
     standard_item_list = [world.create_item(k) for k in other_items]
     if world.options.standard_item_sanity:
         itempool += standard_item_list
     else:
-        [world.push_precollected(item) for item in standard_item_list]
+        to_precollect += standard_item_list
 
     workshop_item_list = [world.create_item(k) for k in workshop_items]
     if world.options.workshop_sanity:
         itempool += workshop_item_list
     else:
-        [world.push_precollected(item) for item in workshop_item_list]
+        to_precollect += workshop_item_list
 
     upgrade_disk_item_list = [world.create_item(k) for k in upgrade_disks]
     if world.options.upgrade_disk_sanity:
         itempool += upgrade_disk_item_list
     else:
-        [world.push_precollected(item) for item in upgrade_disk_item_list]
+        to_precollect += upgrade_disk_item_list
 
     key_item_list = [world.create_item(k) for k in keys]
     if world.options.key_sanity:
         itempool += key_item_list
     else:
-        [world.push_precollected(item) for item in key_item_list]
+        to_precollect += key_item_list
 
     special_shop_item_list = [world.create_item(k) for k in (showroom_items | armory_items)]
     if world.options.special_shop_sanity:
         itempool += special_shop_item_list
     else:
-        [world.push_precollected(item) for item in special_shop_item_list]
+        to_precollect += special_shop_item_list
 
     room_item_list = [world.create_item(room) for room in rooms if room not in core_rooms]
     if world.options.room_draft_sanity:
         itempool += room_item_list
     else:
-        [world.push_precollected(item) for item in room_item_list]
+        # Precollects all room items, except for those that should be at their in-game locations, which are handled in locations.py
+        to_precollect += [room for room in room_item_list if NONSANITY_LOCATION_KEY not in rooms[room.name] or rooms[room.name][NONSANITY_LOCATION_KEY] == STARTING_INVENTORY]
+
+    print(f"Precollecting items for player {world.player}: {[item.name for item in to_precollect]}")
+
+    [world.push_precollected(item) for item in to_precollect]
 
     #
     # Add Filler Stuff

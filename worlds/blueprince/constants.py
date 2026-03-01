@@ -1,3 +1,17 @@
+#####################
+# OPTIONS CONSTANTS #
+#####################
+
+ROOM_DRAFT_SANITY = "room_draft_sanity"
+STANDARD_ITEM_SANITY = "standard_item_sanity"
+WORKSHOP_SANITY = "workshop_sanity"
+UPGRADE_DISK_SANITY = "upgrade_disk_sanity"
+KEY_SANITY = "key_sanity"
+SPECIAL_SHOP_SANITY = "special_shop_sanity"
+
+SANITY_TYPE_KEY = "sanity_type"
+NONSANITY_LOCATION_KEY = "nonsanity_location_item"
+
 ######################
 # ITEM KEY CONSTANTS #
 ######################
@@ -20,7 +34,6 @@ ROOM_LAYOUT_TYPE_KEY = "room_layout"
 OUTER_ROOM_KEY = "is_outer_room"
 
 INNER_ROOM_KEY = "is_inner_room"
-LOCATION_COUNT_KEY = "location_count"
 
 
 ##################
@@ -50,6 +63,7 @@ CHESS_PIECE_BISHOP = "Bishop"
 CHESS_PIECE_PAWN = "Pawn"
 CHESS_PIECE_NONE = ""
 
+STARTING_INVENTORY = "starting_inventory"
 
 ######################
 # ITEM KEY CONSTANTS #
@@ -61,7 +75,6 @@ ITEM_ELEMENT_INDEX_KEY = "item_element_index"
 ITEM_ID_KEY = "item_id"
 # Key of the item's classification in the item data table.
 ITEM_ITEM_CLASSIFICATION_KEY = "item_classification"
-
 
 ##################
 # ITEM CONSTANTS #
@@ -78,6 +91,7 @@ LOCATION_ID_KEY = "location_id"
 LOCATION_RULE = "rule"
 LOCATION_ROOM_KEY = "location_room"
 LOCATION_ITEM_KEY = "location_item"
+LOCATION_SANITY_TYPE_KEY = "sanity_type"
 
 #####################
 # CONTROL CONSTANTS #

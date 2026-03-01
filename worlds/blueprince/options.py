@@ -24,10 +24,9 @@ class RoomDraftSanity(Toggle):
 
     display_name = "Dev: Room Draft Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
-    default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+    default = True
+
+    visibility = Visibility.simple_ui
 
 class StandardItemSanity(Toggle):
     """
@@ -37,10 +36,9 @@ class StandardItemSanity(Toggle):
 
     display_name = "Dev: Standard Item Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
-    default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+    default = True
+
+    visibility = Visibility.simple_ui
 
 class WorkshopSanity(Toggle):
     """
@@ -50,10 +48,9 @@ class WorkshopSanity(Toggle):
 
     display_name = "Dev: Workshop Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
     default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+
+    visibility = Visibility.simple_ui
 
 class UpgradeDiskSanity(Toggle):
     """
@@ -63,10 +60,9 @@ class UpgradeDiskSanity(Toggle):
 
     display_name = "Dev: Upgrade Disk Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
     default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+
+    visibility = Visibility.simple_ui
 
 class KeySanity(Toggle):
     """
@@ -76,10 +72,9 @@ class KeySanity(Toggle):
 
     display_name = "Dev: Key Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
     default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+
+    visibility = Visibility.simple_ui
 
 class SpecialShopSanity(Toggle):
     """
@@ -89,10 +84,9 @@ class SpecialShopSanity(Toggle):
 
     display_name = "Dev: Special Shop Sanity"
 
-    # Unknown Viability. Keeping false until deemed viable.
     default = False
-    # Development Option. Disable visible until implemented.
-    visibility = Visibility.none
+
+    visibility = Visibility.simple_ui
 
 # TODO-2 Crate Sanity?
 # TODO-2 Document full list of potential checks/locations posted in blue prince thread.

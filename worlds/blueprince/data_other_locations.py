@@ -288,34 +288,42 @@ drafting_studio_additions = {
     "Dovecote Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 1),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Dovecote"
     },
     "The Kennel Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 2),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "The Kennel"
     },
     "Clock Tower Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 3),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Clock Tower"
     },
     "Classroom Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 4),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Classroom"
     },
     "Solarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 5),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Solarium"
     },
     "Dormitory Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 6),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Dormitory"
     },
     "Vestibule Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 7),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Vestibule"
     },
     "Casino Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 8),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Casino"
     },
 }
 
@@ -323,35 +331,43 @@ found_floorplans = {
     "Planetarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Observatory", 0),
         LOCATION_ROOM_KEY: "Observatory",
+        NONSANITY_LOCATION_KEY: "Planetarium"
     },
     "Mechanarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Rotating Gear", 0),
         LOCATION_ROOM_KEY: "Rotating Gear",
+        NONSANITY_LOCATION_KEY: "Mechanarium"
     },
     "Treasure Trove Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
         LOCATION_ROOM_KEY: "The Underpass",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player),
+        NONSANITY_LOCATION_KEY: "Treasure Trove"
     },
     "Throne Room Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Orindian Ruins", 0),
         LOCATION_ROOM_KEY: "Orindian Ruins",
+        NONSANITY_LOCATION_KEY: "Throne Room"
     },
     "Tunnel Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Tunnel Area Past Crates", 0),
         LOCATION_ROOM_KEY: "Tunnel Area Past Crates",
+        NONSANITY_LOCATION_KEY: "Tunnel"
     },
     "Conservatory Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 1),
         LOCATION_ROOM_KEY: "Campsite",
+        NONSANITY_LOCATION_KEY: "Conservatory"
     },
     "Lost And Found Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Basement", 0),
         LOCATION_ROOM_KEY: "Basement",
+        NONSANITY_LOCATION_KEY: "Lost And Found"
     },
     "Closed Exhibit Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Study", 1),
         LOCATION_ROOM_KEY: "Study",
+        NONSANITY_LOCATION_KEY: "Closed Exhibit"
     }
 }
 

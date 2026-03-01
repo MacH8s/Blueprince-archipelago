@@ -12,6 +12,7 @@ from .constants import *
 from .data_rooms import rooms, blue_rooms, core_rooms
 from .data_items import armory_items
 from .data_other_locations import can_reach_item_location, locations
+from .items import BluePrinceItem
 
 if TYPE_CHECKING:
     from .world import BluePrinceWorld
@@ -54,6 +55,7 @@ def create_all_locations(world: BluePrinceWorld) -> None:
     create_events(world)
 
 
+
 def create_regular_locations(world: BluePrinceWorld) -> None:
 
     armory = world.get_region("The Armory")
@@ -81,6 +83,15 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
                 room.add_locations(locs, BluePrinceLocation)
 
     for k, v in locations.items():
+        if NONSANITY_LOCATION_KEY in v and world.options.room_draft_sanity == False:
+            if v[NONSANITY_LOCATION_KEY] != STARTING_INVENTORY:
+                # Place room items at their in-game locations when room draft sanity is off.
+                loc = BluePrinceLocation(world.player, k, None)
+                loc.place_locked_item(BluePrinceItem(v[NONSANITY_LOCATION_KEY], ItemClassification.progression, None, world.player))
+                print(f"Placing {v[NONSANITY_LOCATION_KEY]} at {k} for player {world.player}")
+                continue
+
+        
         location_key = k
         locs = get_location_names_with_ids([location_key])
         world.get_region(v[LOCATION_ROOM_KEY]).add_locations(locs, BluePrinceLocation)
@@ -257,3 +268,4 @@ def create_events(world: BluePrinceWorld) -> None:
             item_type=items.BluePrinceItem,
         )
         
+    
