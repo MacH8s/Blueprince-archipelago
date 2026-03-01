@@ -1,13 +1,17 @@
 from BaseClasses import CollectionState, Location
-from worlds.blueprince.options import GoalType
-from worlds.blueprince.test import BluePrinceTestBase
-from worlds.blueprince.data_rooms import rooms, core_rooms
-from worlds.blueprince.constants import *
+from ..options import GoalType
+from ..test import BluePrinceTestBase
+from ..data_rooms import rooms, core_rooms
+from ..constants import *
 
 class TestRegionAccess(BluePrinceTestBase):
     options = {
         "room_draft_sanity": True,
-        "item_sanity": True,
+        "standard_item_sanity": True,
+        "workshop_sanity": True,
+        "upgrade_disk_sanity": True,
+        "key_sanity": True,
+        "special_shop_sanity": True,
         "goal_type": GoalType.option_room46,
     }
 

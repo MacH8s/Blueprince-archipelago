@@ -12,6 +12,7 @@ from .constants import *
 from .data_rooms import rooms, blue_rooms, core_rooms
 from .data_items import armory_items
 from .data_other_locations import can_reach_item_location, locations
+from .items import BluePrinceItem
 
 if TYPE_CHECKING:
     from .world import BluePrinceWorld
@@ -54,6 +55,7 @@ def create_all_locations(world: BluePrinceWorld) -> None:
     create_events(world)
 
 
+
 def create_regular_locations(world: BluePrinceWorld) -> None:
 
     armory = world.get_region("The Armory")
@@ -73,19 +75,37 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
         room.add_locations(locs, BluePrinceLocation)
         # Add Nth locked trunk open
 
-        for idx in range(1, world.options.locked_trunks + 1):
-            if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0:
-                # TODO-2 this could be a comprehension, but this works for now.
-                location_key = f"{room_key} Locked Trunk {idx}"
-                locs = get_location_names_with_ids([location_key])
-                room.add_locations(locs, BluePrinceLocation)
+        locs = get_location_names_with_ids([f"{room_key} Locked Trunk {idx}" for idx in range(1, world.options.locked_trunks + 1) if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0])
+        room.add_locations(locs, BluePrinceLocation)
+
+        if room_key == "Entrance Hall":
+            # TODO: switch to using set_rule once 0.6.7 is released.
+            for idx in range(1, world.options.locked_trunks + 1):
+                world.get_location(f"Entrance Hall Locked Trunk {idx}").access_rule = lambda state: state.can_reach_region("Observatory", world.player) or state.can_reach_region("Laboratory", world.player)
+            
 
     for k, v in locations.items():
+        if NONSANITY_LOCATION_KEY in v and world.options.room_draft_sanity == False:
+            if v[NONSANITY_LOCATION_KEY] != STARTING_INVENTORY:
+                # Place room items at their in-game locations when room draft sanity is off.
+                reg = world.get_region(v[LOCATION_ROOM_KEY])
+                loc = BluePrinceLocation(world.player, k, LOCATION_NAME_TO_ID[k], reg)
+                loc.place_locked_item(BluePrinceItem(v[NONSANITY_LOCATION_KEY], ItemClassification.progression_skip_balancing, None, world.player))
+
+                reg.locations.append(loc)
+
+                # TODO: switch to using set_rule once 0.6.7 is released.
+                world.get_location(k).access_rule = lambda state, key=k: can_access_location_with_rule(key, world, state)
+                # world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
+                continue
+        
         location_key = k
         locs = get_location_names_with_ids([location_key])
         world.get_region(v[LOCATION_ROOM_KEY]).add_locations(locs, BluePrinceLocation)
 
-        world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
+        # TODO: switch to using set_rule once 0.6.7 is released.
+        world.get_location(location_key).access_rule = lambda state, key=location_key: can_access_location_with_rule(key, world, state)
+        # world.set_rule(world.get_location(location_key), lambda state, key=location_key: can_access_location_with_rule(key, world, state))
     
 def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, state: CollectionState) -> bool:
     location_data = locations[location_key]
@@ -255,3 +275,4 @@ def create_events(world: BluePrinceWorld) -> None:
             item_type=items.BluePrinceItem,
         )
         
+    

@@ -138,6 +138,7 @@ classrooms = {
         ROOM_PICK_POSITIONS_KEY: classroom_positions,
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Classroom Floorplan"
     },
 }
 
@@ -156,6 +157,7 @@ secret_blue = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Dovecote Floorplan"
     },
     "The Kennel": {
         ROOM_ITEM_ID_KEY: 202,
@@ -171,6 +173,7 @@ secret_blue = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "The Kennel Floorplan"
     },
     "Clock Tower": {
         ROOM_ITEM_ID_KEY: 203,
@@ -189,6 +192,7 @@ secret_blue = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_ROOK,
+        NONSANITY_LOCATION_KEY: "Clock Tower Floorplan"
     },
     "Planetarium": {
         ROOM_ITEM_ID_KEY: 204,
@@ -208,6 +212,7 @@ secret_blue = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Planetarium Floorplan"
     },
     "Mechanarium": {
         ROOM_ITEM_ID_KEY: 205,
@@ -218,6 +223,7 @@ secret_blue = {
         ROOM_PICK_POSITIONS_KEY: [ROOM_PICK_POSITION_CENTER_TIER_2],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Mechanarium Floorplan"
     },
     "Toolshed": {
         ROOM_ITEM_ID_KEY: 206,
@@ -1016,6 +1022,7 @@ bedrooms = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_PAWN,
+        NONSANITY_LOCATION_KEY: "Dormitory Floorplan"
     },
     "Hovel": {
         ROOM_ITEM_ID_KEY: 302,
@@ -1173,6 +1180,7 @@ hallways = {
         ROOM_PICK_POSITIONS_KEY: [ROOM_PICK_POSITION_CENTER_TIER_1_GEMS],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Vestibule Floorplan"
     },
     "Tunnel": {
         ROOM_ITEM_ID_KEY: 402,
@@ -1187,6 +1195,7 @@ hallways = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Tunnel Floorplan"
     },
     "Hallway": {
         ROOM_ITEM_ID_KEY: 403,
@@ -1307,6 +1316,7 @@ green_rooms = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_PAWN,
+        NONSANITY_LOCATION_KEY: "Solarium Floorplan"
     },
     "Conservatory": {
         ROOM_ITEM_ID_KEY: 502,
@@ -1317,6 +1327,7 @@ green_rooms = {
         ROOM_PICK_POSITIONS_KEY: [ROOM_PICK_POSITION_CORNER_GEMS],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_ROOK,
+        NONSANITY_LOCATION_KEY: "Conservatory Floorplan"
     },
     "Root Cellar": {
         ROOM_ITEM_ID_KEY: 503,
@@ -1462,6 +1473,7 @@ shops = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Casino Floorplan"
     },
     "Trading Post": {
         ROOM_ITEM_ID_KEY: 602,
@@ -1628,6 +1640,7 @@ red_rooms = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_PAWN,
+        NONSANITY_LOCATION_KEY: "Lost And Found Floorplan"
     },
     "Closed Exhibit": {
         ROOM_ITEM_ID_KEY: 702,
@@ -1644,6 +1657,7 @@ red_rooms = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_NONE,
+        NONSANITY_LOCATION_KEY: "Closed Exhibit Floorplan"
     },
     "Lavatory": {
         ROOM_ITEM_ID_KEY: 703,
@@ -1788,6 +1802,7 @@ black_rooms = {
         ],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_KNIGHT,
+        NONSANITY_LOCATION_KEY: "Treasure Trove Floorplan"
     },
     "Throne Room": {
         ROOM_ITEM_ID_KEY: 802,
@@ -1798,6 +1813,7 @@ black_rooms = {
         ROOM_PICK_POSITIONS_KEY: [ROOM_PICK_POSITION_EDGE_PIERCE_RARE_GEMS, ROOM_PICK_POSITION_CENTER_TIER_2_GEMS],
         OUTER_ROOM_KEY: False,
         ROOM_CHESS_PIECE_KEY: CHESS_PIECE_KING,
+        NONSANITY_LOCATION_KEY: "Throne Room Floorplan",
     },
     "Tomb": {
         ROOM_ITEM_ID_KEY: 803,

@@ -1,7 +1,7 @@
 from BaseClasses import CollectionState, ItemClassification
 
 from .constants import *
-from .data_rooms import rooms, core_rooms, room_layout_lists
+from .data_rooms import rooms, core_rooms, classrooms, room_layout_lists
 from .data_items import *
 from .locations import ROOM_MULTIPLIER
 
@@ -86,7 +86,7 @@ trophies = {
     "Explorer's Trophy": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 1),
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_RULE: lambda state, world: state.has_all([x for x in rooms if x not in core_rooms], world.player)
+        LOCATION_RULE: lambda state, world: state.has_all([x for x in rooms if x not in core_rooms and (x not in classrooms or x == "Classroom 1")], world.player)
     },
     "Trophy of Sigils": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 2),
@@ -288,34 +288,42 @@ drafting_studio_additions = {
     "Dovecote Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 1),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Dovecote"
     },
     "The Kennel Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 2),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "The Kennel"
     },
     "Clock Tower Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 3),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Clock Tower"
     },
     "Classroom Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 4),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Classroom Exam"
     },
     "Solarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 5),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Solarium"
     },
     "Dormitory Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 6),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Dormitory"
     },
     "Vestibule Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 7),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Vestibule"
     },
     "Casino Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Drafting Studio", 8),
         LOCATION_ROOM_KEY: "Drafting Studio",
+        NONSANITY_LOCATION_KEY: "Casino"
     },
 }
 
@@ -323,35 +331,45 @@ found_floorplans = {
     "Planetarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Observatory", 0),
         LOCATION_ROOM_KEY: "Observatory",
+        NONSANITY_LOCATION_KEY: "Planetarium"
     },
     "Mechanarium Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Rotating Gear", 0),
         LOCATION_ROOM_KEY: "Rotating Gear",
+        NONSANITY_LOCATION_KEY: "Mechanarium"
     },
     "Treasure Trove Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("The Underpass", 0),
         LOCATION_ROOM_KEY: "The Underpass",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player)
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Boiler Room", world.player),
+        NONSANITY_LOCATION_KEY: "Treasure Trove"
     },
     "Throne Room Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Orindian Ruins", 0),
         LOCATION_ROOM_KEY: "Orindian Ruins",
+        NONSANITY_LOCATION_KEY: "Throne Room"
     },
     "Tunnel Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Tunnel Area Past Crates", 0),
         LOCATION_ROOM_KEY: "Tunnel Area Past Crates",
+        NONSANITY_LOCATION_KEY: "Tunnel"
     },
     "Conservatory Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Campsite", 1),
         LOCATION_ROOM_KEY: "Campsite",
+        NONSANITY_LOCATION_KEY: "Conservatory",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world),
     },
     "Lost And Found Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Basement", 0),
         LOCATION_ROOM_KEY: "Basement",
+        NONSANITY_LOCATION_KEY: "Lost And Found",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world),
     },
     "Closed Exhibit Floorplan": {
         LOCATION_ID_KEY: get_room_location_id("Study", 1),
         LOCATION_ROOM_KEY: "Study",
+        NONSANITY_LOCATION_KEY: "Closed Exhibit"
     }
 }
 
@@ -1056,7 +1074,8 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
         LOCATION_ROOM_KEY: "Shrine",
         LOCATION_ITEM_KEY: "CURSED EFFIGY",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) and state.can_reach_region("Gift Shop", world.player)
+        LOCATION_RULE: lambda state, world: (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)) 
+        and state.can_reach_region("Gift Shop", world.player)
     },
     "DIARY KEY First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Her Ladyship's Chambers", 0),
@@ -1084,7 +1103,7 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 10),
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "MICROCHIP 2",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world)
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "MICROCHIP 3 First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Blackbridge Grotto", 0),
@@ -1237,7 +1256,7 @@ vault_keys = {
     "Vault Key 149": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 4), # Doesn't spawn there, but putting it there and adding spawn locations as requirements
         LOCATION_ROOM_KEY: "Entrance Hall",
-        LOCATION_ID_KEY: "VAULT KEY 149",
+        LOCATION_ITEM_KEY: "VAULT KEY 149",
         LOCATION_RULE: lambda state, world: can_reach_item_location("SHOVEL", state, world) 
         or any(state.can_reach_region(x, world.player) for x in [
             "Attic", 
@@ -1357,10 +1376,12 @@ misc_locations = {
     "Entrance Hall East Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 8),
         LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Entrance Hall West Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 9),
         LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
@@ -1400,7 +1421,7 @@ misc_locations = {
     "Allowance Token - Outer Entrance Hall Vase": {
         LOCATION_ID_KEY: get_room_location_id("Outer Room", 0),
         LOCATION_ROOM_KEY: "Outer Room",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and can_reach_item_location("SLEDGE HAMMER", state, world)
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world))
     },
     # Ignoring deposit box allowance tokens for now, since they are missable (don't respawn if not picked up)
 }
