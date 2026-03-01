@@ -1072,7 +1072,8 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
         LOCATION_ROOM_KEY: "Shrine",
         LOCATION_ITEM_KEY: "CURSED EFFIGY",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) and state.can_reach_region("Gift Shop", world.player)
+        LOCATION_RULE: lambda state, world: (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)) 
+        and state.can_reach_region("Gift Shop", world.player)
     },
     "DIARY KEY First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Her Ladyship's Chambers", 0),
@@ -1100,7 +1101,7 @@ unique_item_pickup = {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 10),
         LOCATION_ROOM_KEY: "Entrance Hall",
         LOCATION_ITEM_KEY: "MICROCHIP 2",
-        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world)
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "MICROCHIP 3 First Pickup": {
         LOCATION_ID_KEY: get_room_location_id("Blackbridge Grotto", 0),
@@ -1373,10 +1374,12 @@ misc_locations = {
     "Entrance Hall East Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 8),
         LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Entrance Hall West Vase": {
         LOCATION_ID_KEY: get_room_location_id("Entrance Hall", 9),
         LOCATION_ROOM_KEY: "Entrance Hall",
+        LOCATION_RULE: lambda state, world: can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world)
     },
     "Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Shrine", 0),
@@ -1416,7 +1419,7 @@ misc_locations = {
     "Allowance Token - Outer Entrance Hall Vase": {
         LOCATION_ID_KEY: get_room_location_id("Outer Room", 0),
         LOCATION_ROOM_KEY: "Outer Room",
-        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and can_reach_item_location("SLEDGE HAMMER", state, world)
+        LOCATION_RULE: lambda state, world: state.can_reach_region("Shrine", world.player) and (can_reach_item_location("SLEDGE HAMMER", state, world) or can_reach_item_location("MORNING STAR", state, world))
     },
     # Ignoring deposit box allowance tokens for now, since they are missable (don't respawn if not picked up)
 }

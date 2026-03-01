@@ -26,7 +26,7 @@ class RoomDraftSanity(Toggle):
 
     default = True
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 class StandardItemSanity(Toggle):
     """
@@ -38,7 +38,7 @@ class StandardItemSanity(Toggle):
 
     default = True
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 class WorkshopSanity(Toggle):
     """
@@ -50,7 +50,7 @@ class WorkshopSanity(Toggle):
 
     default = False
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 class UpgradeDiskSanity(Toggle):
     """
@@ -62,7 +62,7 @@ class UpgradeDiskSanity(Toggle):
 
     default = False
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 class KeySanity(Toggle):
     """
@@ -74,7 +74,7 @@ class KeySanity(Toggle):
 
     default = False
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 class SpecialShopSanity(Toggle):
     """
@@ -86,7 +86,7 @@ class SpecialShopSanity(Toggle):
 
     default = False
 
-    visibility = Visibility.simple_ui
+    visibility = Visibility.all
 
 # TODO-2 Crate Sanity?
 # TODO-2 Document full list of potential checks/locations posted in blue prince thread.

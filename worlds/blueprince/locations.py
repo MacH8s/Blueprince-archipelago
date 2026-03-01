@@ -75,12 +75,14 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
         room.add_locations(locs, BluePrinceLocation)
         # Add Nth locked trunk open
 
-        for idx in range(1, world.options.locked_trunks + 1):
-            if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0:
-                # TODO-2 this could be a comprehension, but this works for now.
-                location_key = f"{room_key} Locked Trunk {idx}"
-                locs = get_location_names_with_ids([location_key])
-                room.add_locations(locs, BluePrinceLocation)
+        locs = get_location_names_with_ids([f"{room_key} Locked Trunk {idx}" for idx in range(1, world.options.locked_trunks + 1) if v[ROOM_CHEST_SPOT_COUNT_KEY] > 0])
+        room.add_locations(locs, BluePrinceLocation)
+
+        if room_key == "Entrance Hall":
+            # TODO: switch to using set_rule once 0.6.7 is released.
+            for idx in range(1, world.options.locked_trunks + 1):
+                world.get_location(f"Entrance Hall Locked Trunk {idx}").access_rule = lambda state: state.can_reach_region("Observatory", world.player) or state.can_reach_region("Laboratory", world.player)
+            
 
     for k, v in locations.items():
         if NONSANITY_LOCATION_KEY in v and world.options.room_draft_sanity == False:
