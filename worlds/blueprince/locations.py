@@ -130,7 +130,7 @@ def can_access_location_with_rule(location_key: str, world: BluePrinceWorld, sta
         rules.append(location_data[LOCATION_RULE_EXTREME])
 
     if not rules:
-        return True
+        return False
 
     return any(rule(state, world) for rule in rules)
 
