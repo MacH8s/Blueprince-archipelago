@@ -391,7 +391,7 @@ gift_shop_items = {
     "Gift Shop - Blue Tents": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop", 4),
         LOCATION_ROOM_KEY: "Gift Shop",
-        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: len([state.can_reach_location(loc, world.player) for loc in trophies.keys()]) >= 8
+        LOCATION_RULE_SIMPLE_COMMON: lambda state, world: len([loc for loc in trophies if state.can_reach_location(loc, world.player)]) >= 8
     },
     "Gift Shop - Cursed Coffers": {
         LOCATION_ID_KEY: get_room_location_id("Gift Shop", 5),
