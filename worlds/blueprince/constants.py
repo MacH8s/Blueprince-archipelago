@@ -88,7 +88,12 @@ NO_ITEM_ELEMENT_INDEX = -1
 ##########################
 
 LOCATION_ID_KEY = "location_id"
-LOCATION_RULE = "rule"
+
+LOCATION_RULE_SIMPLE_COMMON = "rule_simple_common"
+LOCATION_RULE_SIMPLE_RARE = "rule_simple_rare"
+LOCATION_RULE_COMPLEX = "rule_complex"
+LOCATION_RULE_EXTREME = "rule_extreme"
+
 LOCATION_ROOM_KEY = "location_room"
 LOCATION_ITEM_KEY = "location_item"
 LOCATION_SANITY_TYPE_KEY = "sanity_type"

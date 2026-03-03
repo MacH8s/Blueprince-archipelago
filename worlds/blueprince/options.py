@@ -106,11 +106,12 @@ class LockedTrunkCount(Range):
 class ItemLogicMode(Choice):
     """
     This option controls which possible item spawns are considered for an item being obtainable.
+    Room upgrades are currently not considered at all.
 
     - **default:** Only common, simple spawn locations are considered.
-    - **rare:** All simple spawn locations are considered.
-    - **complex:** All common spawn locations are considered.
-    - **rare_complex:** Everything is considered except ||Spiral of Stars||, ||Advanced Experiments||, and ||Freight Mail||.
+    - **rare:** All simple spawn locations are considered, including ones that require high luck.
+    - **complex:** All common spawn locations are considered, including ones that require multiple rooms/items. Also includes trunk contents.
+    - **rare_complex:** Everything is considered except for ||Spiral of Stars||, ||Advanced Experiments||, ||Trading Post||, ||Freight Mail||, and extra complex ||Trunk locations||.
     - **extreme:** Everything is considered.
 
     """
@@ -343,6 +344,8 @@ class BluePrinceOptions(PerGameCommonOptions):
     # Development Options
     room_draft_sanity: RoomDraftSanity
     locked_trunks: LockedTrunkCount
+    item_logic_mode: ItemLogicMode
+
     standard_item_sanity: StandardItemSanity
     workshop_sanity: WorkshopSanity
     upgrade_disk_sanity: UpgradeDiskSanity
@@ -371,6 +374,7 @@ option_groups = [
         [
             RoomDraftSanity,
             LockedTrunkCount,
+            ItemLogicMode,
             StandardItemSanity,
             WorkshopSanity,
             UpgradeDiskSanity,
@@ -405,6 +409,7 @@ option_presets = {
         "upgrade_disk_sanity": True,
         "key_sanity": True,
         "special_shop_sanity": True,
+        "item_logic_mode": ItemLogicMode.default,
         "filler_item_distribution": {"nothing": 100},
         "trap_type_distribution": {},
         "trap_percentage": TrapPercentage.range_start,
@@ -413,5 +418,6 @@ option_presets = {
         "death_link_monk_exception": True,
         "goal_type": GoalType.option_room46,
         "goal_sanctum_solves": GoalSanctumSolves.range_end,
+        "start_inventory": {"Hallway": 1, "Bedroom": 1, "Closet": 1}
     },
 }
