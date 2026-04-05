@@ -423,7 +423,15 @@ def create_all_items(world: BluePrinceWorld) -> None:
 
     room_item_list = [world.create_item(room) for room in rooms if room not in core_rooms]
     if world.options.room_draft_sanity:
-        itempool += room_item_list
+        # Add closet
+        closet_item = next(room for room in room_item_list if room.name == "Closet")
+        remaining_rooms = [room for room in room_item_list if room.name != "Closet"]
+        # Precollect closet, and a random selection of other rooms based on the number of starting rooms option
+        selected_rooms = [closet_item] + world.random.sample(remaining_rooms, world.options.starting_rooms - 1)
+        to_precollect += selected_rooms
+        # Add the rest to the itempool.
+        remaining_rooms = [room for room in remaining_rooms if room not in selected_rooms]
+        itempool += remaining_rooms        
     else:
         # Precollects all room items, except for those that should be at their in-game locations, which are handled in locations.py
         to_precollect += [room for room in room_item_list if NONSANITY_LOCATION_KEY not in rooms[room.name] or rooms[room.name][NONSANITY_LOCATION_KEY] == STARTING_INVENTORY]

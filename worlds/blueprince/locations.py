@@ -101,7 +101,7 @@ def create_regular_locations(world: BluePrinceWorld) -> None:
                 # Place room items at their in-game locations when room draft sanity is off.
                 reg = world.get_region(v[LOCATION_ROOM_KEY])
                 loc = BluePrinceLocation(world.player, k, LOCATION_NAME_TO_ID[k], reg)
-                loc.place_locked_item(BluePrinceItem(v[NONSANITY_LOCATION_KEY], ItemClassification.progression_skip_balancing, None, world.player))
+                loc.place_locked_item(BluePrinceItem(v[NONSANITY_LOCATION_KEY], ItemClassification.progression_skip_balancing, items.ITEM_NAME_TO_ID[v[NONSANITY_LOCATION_KEY]], world.player))
 
                 reg.locations.append(loc)
 

@@ -67,6 +67,7 @@ class BluePrinceWorld(World):
         # If you need access to the player's chosen options on the client side, there is a helper for that.
         return self.options.as_dict(
             "room_draft_sanity",
+            "starting_rooms",
             "locked_trunks_common",
             "locked_trunks_rare",
             "locked_trunks_complex",

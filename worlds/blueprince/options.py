@@ -28,6 +28,19 @@ class RoomDraftSanity(Toggle):
 
     visibility = Visibility.all
 
+class StartingRooms(Range):
+    """
+    This is the number of starting rooms that are precollected at the start of the game, and not put into the item pool. This is only relevant if Room Draft Sanity is enabled.
+    Closet will always be one of the starting rooms, and the other starting rooms will be chosen at random. 
+    """
+
+    display_name = "Starting Rooms"
+
+    range_start = 8
+    range_end = 25
+
+    default = 8
+
 class StandardItemSanity(Toggle):
     """
     This option enables standard item sanity checks.
@@ -367,6 +380,7 @@ class BluePrinceOptions(PerGameCommonOptions):
 
     # Development Options
     room_draft_sanity: RoomDraftSanity
+    starting_rooms: StartingRooms
     locked_trunks_common: LockedTrunkCommonCount
     locked_trunks_rare: LockedTrunkRareCount
     locked_trunks_complex: LockedTrunkComplexCount
@@ -399,6 +413,7 @@ option_groups = [
         "Sanity Options",
         [
             RoomDraftSanity,
+            StartingRooms,
             LockedTrunkCommonCount,
             LockedTrunkRareCount,
             LockedTrunkComplexCount,
@@ -431,6 +446,7 @@ option_presets = {
     # with no death link, with the goal set to room 64, and with no filler items or traps added to the pool.
     "Room 46 Extra Drafting": {
         "room_draft_sanity": True,
+        "starting_rooms": StartingRooms.default,
         "locked_trunks_common": 2,
         "locked_trunks_rare": 0,
         "locked_trunks_complex": 0,
